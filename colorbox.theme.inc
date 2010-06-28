@@ -20,7 +20,7 @@ function theme_colorbox_formatter_imagefield($element) {
     return;
   }
 
-  if (!empty($element['#item']['fid']) && isset($element['#item']['nid'])) {
+  if (!empty($element['#item']['fid'])) {
     $item = $element['#item'];
 
     if (is_string($item['data'])) {
@@ -38,8 +38,7 @@ function theme_colorbox_formatter_imagefield($element) {
       elseif (!empty($item['data']['alt'])) {
         $item['data']['title'] = $item['data']['alt'];
       }
-      else {
-        $node = node_load($item['nid']);
+      elseif (is_numeric($item['nid']) && $node = node_load($item['nid'])) {
         $item['data']['title'] = $node->title;
       }
     }
