@@ -8,17 +8,17 @@ Drupal.behaviors.initColorbox = function (context) {
     speed:settings.speed,
     opacity:settings.opacity,
     slideshow:settings.slideshow,
-    slideshowSpeed:settings.slideshowspeed,
-    slideshowAuto:settings.slideshowauto,
-    slideshowStart:settings.slideshowstart,
-    slideshowStop:settings.slideshowstop,
+    slideshowSpeed:settings.slideshowSpeed,
+    slideshowAuto:settings.slideshowAuto,
+    slideshowStart:settings.slideshowStart,
+    slideshowStop:settings.slideshowStop,
     current:settings.current,
     previous:settings.previous,
     next:settings.next,
     close:settings.close,
-    overlayClose:settings.overlayclose,
-    maxWidth:settings.maxwidth,
-    maxHeight:settings.maxheight
+    overlayClose:settings.overlayClose,
+    maxWidth:settings.maxWidth,
+    maxHeight:settings.maxHeight
   });
 };
 

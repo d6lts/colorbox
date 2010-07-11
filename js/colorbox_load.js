@@ -13,9 +13,9 @@ Drupal.behaviors.initColorboxLoad = function (context) {
     speed:settings.speed,
     opacity:settings.opacity,
     close:settings.close,
-    overlayClose:settings.overlayclose,
-    maxWidth:settings.maxwidth,
-    maxHeight:settings.maxheight,
+    overlayClose:settings.overlayClose,
+    maxWidth:settings.maxWidth,
+    maxHeight:settings.maxHeight,
     innerWidth:function(){
       return $.urlParam('width', $(this).attr('href'));
     },
