@@ -234,6 +234,16 @@ function _colorbox_doheader() {
     }
   }
 
+  if (module_exists('img_assist') && variable_get('colorbox_auto_img_assist_custom', 0)) {
+    $img_assist_derivative = variable_get('colorbox_img_assist_derivative', 'preview');
+    // If the image derivative is set to IMAGE_ORIGINAL check if the
+    // user has access before activating Colorbox.
+    if (!($img_assist_derivative == IMAGE_ORIGINAL && !user_access('view original images'))) {
+      drupal_add_js(array('colorbox' => array('img_assist_derivative' => $img_assist_derivative)), 'setting');
+      drupal_add_js($path .'/js/colorbox_img_assist_module.js');
+    }
+  }
+
   drupal_add_js(colorbox_get_path());
   drupal_add_js($path .'/js/colorbox.js');
 
