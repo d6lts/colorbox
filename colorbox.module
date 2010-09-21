@@ -211,7 +211,6 @@ function _colorbox_doheader() {
     );
   }
 
-
   $path = drupal_get_path('module', 'colorbox');
   $style = variable_get('colorbox_style', 'default');
 
