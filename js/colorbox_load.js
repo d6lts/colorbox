@@ -24,6 +24,9 @@ Drupal.behaviors.initColorboxLoad = function (context) {
     },
     iframe:function(){
       return $.urlParam('iframe', $(this).attr('href'));
+    },
+    slideshow:function(){
+      return $.urlParam('slideshow', $(this).attr('href'));
     }
   });
 };
