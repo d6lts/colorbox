@@ -263,6 +263,10 @@ function _colorbox_doheader() {
     drupal_add_js($path .'/js/colorbox_load.js');
   }
 
+  if (variable_get('colorbox_inline', 0)) {
+    drupal_add_js($path .'/js/colorbox_inline.js');
+  }
+
   if ($GLOBALS['user']->uid == 0 && variable_get('colorbox_login', 0)) {
     drupal_add_js($path .'/js/colorbox_login.js');
   }
