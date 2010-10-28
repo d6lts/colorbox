@@ -150,6 +150,7 @@ function colorbox_admin_settings() {
   );
   $colorbox_styles = array(
     'default' => t('Default'),
+    'stockholmsyndrome' => t('Stockholm Syndrome'),
     $colorbox_path .'/example1' => t('Example 1'),
     $colorbox_path .'/example2' => t('Example 2'),
     $colorbox_path .'/example3' => t('Example 3'),
