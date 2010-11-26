@@ -25,6 +25,8 @@ function colorbox_form_page($form_id) {
       module_load_include('inc', 'contact', 'contact.pages');
       print contact_site_page();
       break;
+    case 'user_pass':
+      module_load_include('inc', 'user', 'user.pages');
     default:
       $form = drupal_get_form($form_id);
       if (!empty($form)) {
