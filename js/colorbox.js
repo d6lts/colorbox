@@ -6,10 +6,12 @@ Drupal.behaviors.initColorbox = function (context) {
     .filter('.colorbox:not(.initColorbox-processed)')
     .addClass('initColorbox-processed')
     .colorbox(Drupal.settings.colorbox);
+};
 
-  $(document).bind('cbox_complete', function(){
+{
+  $(document).bind('cbox_complete', function () {
     Drupal.attachBehaviors('#cboxLoadedContent');
   });
-};
+}
 
 })(jQuery);
