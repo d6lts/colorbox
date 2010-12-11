@@ -117,12 +117,15 @@ function colorbox_admin_settings() {
     '#default_value' => variable_get('colorbox_login', 0),
     '#description' => t('Automatically activate Colorbox for links to user/login.'),
   );
+  $js_hide = variable_get('colorbox_login', 0) ? '' : ' js-hide';
   $form['colorbox_login_settings']['colorbox_login_form'] = array(
     '#type' => 'select',
     '#title' => t('Login form to use'),
     '#options' => array('user_login' => t('User login'), 'user_login_block' => t('User login block')),
     '#default_value' => variable_get('colorbox_login_form', 'user_login'),
     '#description' => t('Select which form to use for login.'),
+    '#prefix' => '<div class="colorbox-login-settings'. $js_hide .'">',
+    '#suffix' => '</div>',
   );
 
   $form['colorbox_extra_settings'] = array(
@@ -145,8 +148,6 @@ function colorbox_admin_settings() {
   $form['colorbox_custom_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles and options'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE
   );
   $colorbox_styles = array(
     'default' => t('Default'),
