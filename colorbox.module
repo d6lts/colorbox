@@ -332,7 +332,7 @@ function colorbox_form_alter(&$form, $form_state, $form_id) {
  * Implementation of hook_link_alter().
  */
 function colorbox_link_alter(&$links, $node) {
-  if ($node->type == 'image' && variable_get('colorbox_auto_image_nodes', 0)) {
+  if ($node->type == 'image' && is_array($node->images) && variable_get('colorbox_auto_image_nodes', 0)) {
     // Add a colorbox class to the image link sizes on the image node.
     foreach ($node->images as $size => $path) {
       $links['image_size_'. $size]['attributes']['class'] = "image image-{$size} colorbox";
