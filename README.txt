@@ -126,6 +126,25 @@ http://colorpowered.com/colorbox/#help_paths.
 The default style in Colorbox module does not have this problem.
 
 
+Hooks:
+-----
+hook_colorbox_form_access($form_id);
+
+Allow other modules to control access to forms opening in Colorbox.
+
+Example:
+/**
+ * Implementation of hook_colorbox_form_access().
+ */
+function my_module_colorbox_form_access($form_id) {
+  $access = FALSE;
+  if ($form_id == 'forward_form') {
+    return user_access('access forward');
+  }
+  return $access;
+}
+
+
 Contributions:
 -------------
 * Porting all features from the Thickbox module,
