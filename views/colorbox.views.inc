@@ -7,7 +7,7 @@
  */
 
 /**
- * Implementation of hook_views_data()
+ * Implementation of hook_views_data().
  */
 function colorbox_views_data() {
 

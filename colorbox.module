@@ -16,7 +16,7 @@ define('COLORBOX_MAX_JQUERY_VERSION', '1.4+');
 
 
 /**
- * Implmentation of hook_theme().
+ * Implementation of hook_theme().
  */
 function colorbox_theme() {
   $theme = array(
@@ -296,7 +296,7 @@ function _colorbox_doheader() {
  * This can be used by other modules' hook_requirements() to ensure that the
  * proper version of Colorbox plugin is installed.
  *
- * @see version_compare
+ * @see version_compare()
  */
 function colorbox_get_version($colorbox_path = NULL) {
   $version = 0;
