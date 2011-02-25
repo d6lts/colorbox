@@ -138,4 +138,3 @@ Contributions:
 
 Last updated:
 ------------
-$Id$
