@@ -59,6 +59,9 @@ Installation:
    usually be "sites/all/modules/").
 4. Go to "Administer" -> "Site building" -> "Modules" and enable the module.
 
+If you want to use Colorbox with the Embedded Media Field module
+please check "Enable Colorbox load" in the settings.
+
 
 Configuration:
 -------------
