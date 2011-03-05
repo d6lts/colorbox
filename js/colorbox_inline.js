@@ -17,7 +17,7 @@ Drupal.behaviors.initColorboxInline = function (context) {
     speed:settings.speed,
     opacity:settings.opacity,
     close:settings.close,
-    overlayClose:settings.overlaycClose,
+    overlayClose:settings.overlayClose,
     maxWidth:settings.maxWidth,
     maxHeight:settings.maxHeight,
     innerWidth:function(){
