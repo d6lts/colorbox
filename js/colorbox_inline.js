@@ -1,6 +1,9 @@
 (function ($) {
 
 Drupal.behaviors.initColorboxInline = function (context) {
+  if (!$.isFunction($.colorbox)) {
+    return;
+  }
   var settings = Drupal.settings.colorbox;
   $.urlParam = function(name, url){
     if (name == 'fragment') {

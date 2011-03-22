@@ -1,6 +1,9 @@
 (function ($) {
 
 Drupal.behaviors.initColorboxLoad = function (context) {
+  if (!$.isFunction($.colorbox)) {
+    return;
+  }
   var settings = Drupal.settings.colorbox;
   $.urlParam = function(name, url){
     var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);

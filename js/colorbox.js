@@ -1,6 +1,9 @@
 (function ($) {
 
 Drupal.behaviors.initColorbox = function (context) {
+  if (!$.isFunction($.colorbox)) {
+    return;
+  }
   $('a, area, input', context)
     .filter('.colorbox:not(.initColorbox-processed)')
     .addClass('initColorbox-processed')

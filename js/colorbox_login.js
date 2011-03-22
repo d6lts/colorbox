@@ -1,6 +1,9 @@
 (function ($) {
 
 Drupal.behaviors.initColorboxLogin = function (context) {
+  if (!$.isFunction($.colorbox)) {
+    return;
+  }
   $("a[href*='/user/login'], a[href*='?q=user/login']", context).colorbox({
     initialWidth:200,
     initialHeight:200,
