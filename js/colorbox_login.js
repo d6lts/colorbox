@@ -11,7 +11,17 @@ Drupal.behaviors.initColorboxLogin = function (context) {
       $('#edit-name').focus();
     }
   }).each(function () {
-      this.href = this.href.replace(/user\/login/,"user/login/colorbox");
+      var path = this.href;
+      var new_path = path.replace(/user\/login/,'user/login/colorbox')
+      var addquery = (path.indexOf('?') !=-1) ? '&' : '?';
+
+      // If no destination, add one to the current page.
+      if (path.indexOf('destination') !=-1) {
+        this.href = new_path;
+      }
+      else {
+        this.href = new_path + addquery + 'destination=' + window.location.pathname.substr(1);
+      }
   });
 };
 

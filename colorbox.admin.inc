@@ -117,14 +117,15 @@ function colorbox_admin_settings() {
     '#description' => t('Automatically activate Colorbox for links to user/login.'),
   );
   $js_hide = variable_get('colorbox_login', 0) ? '' : ' js-hide';
-  $form['colorbox_login_settings']['colorbox_login_form'] = array(
-    '#type' => 'select',
-    '#title' => t('Login form to use'),
-    '#options' => array('user_login' => t('User login'), 'user_login_block' => t('User login block')),
-    '#default_value' => variable_get('colorbox_login_form', 'user_login'),
-    '#description' => t('Select which form to use for login.'),
+  $form['colorbox_login_settings']['colorbox_login_links'] = array(
+    '#type' => 'radios',
+    '#title' => t('Display links'),
+    '#options' => array(0 => t('No links'), 1 => t('Show links'), 2 => t('Show links and open them in a Colorbox')),
+    '#default_value' => variable_get('colorbox_login_links', 0),
+    '#description' => t('Display the "Create new account" (if allowed) and "Request new password" links below the login form.'),
     '#prefix' => '<div class="colorbox-login-settings'. $js_hide .'">',
     '#suffix' => '</div>',
+    '#after_build' => array('_colorbox_admin_settings_login_links_load'),
   );
 
   $form['colorbox_extra_settings'] = array(
@@ -356,3 +357,14 @@ function colorbox_admin_settings() {
   return system_settings_form($form);
 }
 
+/**
+ * Enable the Colorbox load feature of the login links are set to open in a Colorbox.
+ */
+function _colorbox_admin_settings_login_links_load($form_element) {
+  $login_links = $form_element['#value'];
+  if ($login_links == 2) {
+    variable_set('colorbox_load', 1);
+  }
+
+  return $form_element;
+}
