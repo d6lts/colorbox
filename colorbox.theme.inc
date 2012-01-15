@@ -111,6 +111,7 @@ function theme_colorbox_imagefield($presetname, $path, $alt = '', $title = '', $
 function template_preprocess_colorbox_insert_image(&$vars) {
   $vars['presetname'] = $vars['item']['presetname'];
   $vars['image_path'] = imagecache_create_url($vars['presetname'], $vars['item']['filepath']);
+  $vars['insert_class'] = $vars['widget']['insert_class'];
 
   if ($colorbox_presetname = variable_get('colorbox_imagecache_preset', 0)) {
     $vars['link_path'] = imagecache_create_url($colorbox_presetname, $vars['item']['filepath']);
