@@ -294,10 +294,15 @@ function colorbox_get_version($colorbox_js = NULL) {
 function colorbox_get_js() {
   $library_path = colorbox_get_path();
 
-  if (file_exists($library_path . '/colorbox/jquery.colorbox.js') && file_exists($library_path . '/colorbox/jquery.colorbox-min.js')) {
+  // Support for older version of the Colorbox plugin, pre 1.3.21.1.
+  if (is_dir($library_path . '/colorbox')) {
+    $library_path = $library_path . '/colorbox';
+  }
+
+  if (file_exists($library_path . '/jquery.colorbox.js') && file_exists($library_path . '/jquery.colorbox-min.js')) {
     $colorbox_js_map = array('none' => 'jquery.colorbox.js', 'min' => 'jquery.colorbox-min.js');
     $colorbox_js = $colorbox_js_map[variable_get('colorbox_compression_type', 'min')];
-    return $library_path . '/colorbox/' . $colorbox_js;
+    return $library_path . '/' . $colorbox_js;
   }
 //   else {
 //     drupal_set_message(t('You need to download the !colorbox and extract the entire contents of the archive into the %path folder of your server.', array('!colorbox' => l(t('Colorbox plugin'), 'http://colorpowered.com/colorbox/'), '%path' => $library_path)), 'error', FALSE);
