@@ -167,6 +167,11 @@ If you would like to have the characters %5B and %5D please use the html entity 
     $gallery = strtr($this->options['custom_gid'] , $tokens);
     $gallery = drupal_html_class($gallery);
 
+    // Return nothing if popup is empty.
+    if (empty($popup)) {
+      return;
+    }
+
     $width = $this->options['width'] ? $this->options['width'] : '';
     $height = $this->options['height'] ? $this->options['height'] : '';
     $gallery_id = !empty($gallery) ? $gallery : ($this->options['gid'] ? 'gallery-' . $this->view->name : '');
