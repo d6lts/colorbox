@@ -162,10 +162,10 @@ If you would like to have the characters %5B and %5D please use the html entity 
     $tokens = $this->get_render_tokens($this->options['alter']);
     $popup = filter_xss_admin($this->options['popup']);
     $caption = filter_xss_admin($this->options['caption']);
+    $gallery = filter_xss_admin($this->options['custom_gid']);
     $popup = strtr($popup, $tokens);
     $caption = strtr($caption, $tokens);
-    $gallery = strtr($this->options['custom_gid'] , $tokens);
-    $gallery = drupal_html_class($gallery);
+    $gallery = drupal_html_class(strtr($gallery, $tokens));
 
     // Return nothing if popup is empty.
     if (empty($popup)) {
