@@ -8,6 +8,7 @@ colorbox:
     /libraries/colorbox/jquery.colorbox-min.js: { minified: true }
   dependencies:
     - core/jquery
+    - core/jquery.once
 
 colorbox-dev:
   remote: http://github.com/jackmoore/colorbox
@@ -19,6 +20,7 @@ colorbox-dev:
     /libraries/colorbox/jquery.colorbox.js: { }
   dependencies:
     - core/jquery
+    - core/jquery.once
 
 init:
   version: VERSION
