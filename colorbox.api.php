@@ -29,7 +29,7 @@ function hook_colorbox_settings_alter(&$settings, &$style) {
 }
 
 /**
- * Allows to override activation of Colobox for the current URL.
+ * Allows to override activation of Colorbox for the current URL.
  *
  * @param $active
  *   A boolean indicating whether colorbox should be active for the current
