@@ -115,7 +115,7 @@ function colorbox_page_attachments(array &$page) {
 /**
  * Check if Colorbox should be active for the current URL.
  *
- * @return
+ * @return bool
  *   TRUE if Colorbox should be active for the current page.
  */
 function _colorbox_active() {
@@ -148,7 +148,9 @@ function _colorbox_active() {
 /**
  * Converts a text with lines (\n) into an array of lines.
  *
- * @return
+ * @param string $text
+ *
+ * @return array
  *   Array with as many items as non-empty lines in the text
  */
 function _colorbox_string_to_array($text) {
@@ -159,7 +161,9 @@ function _colorbox_string_to_array($text) {
 /**
  * Converts an array of lines into an text with lines (\n).
  *
- * @return
+ * @param array $array
+ *
+ * @return string
  *   Text with lines
  */
 function _colorbox_array_to_string($array) {
