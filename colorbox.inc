@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Template\Attribute;
+use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Unicode;
 
 /**
@@ -22,6 +23,8 @@ use Drupal\Component\Utility\Unicode;
  *   - settings: Formatter settings array.
  */
 function template_preprocess_colorbox_formatter(&$variables) {
+  static $gallery_token = NULL;
+
   $item = $variables['item'];
   $item_attributes = isset($variables['item_attributes']) ? $variables['item_attributes'] : array();
 
@@ -71,7 +74,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
   $colorbox_style = $config->get('colorbox_style');
   $trim_length = $config->get('colorbox_caption_trim_length');
   if (((strpos($colorbox_style, 'colorbox/example') !== FALSE) || $config->get('colorbox_caption_trim')) && (Unicode::strlen($caption) > $trim_length)) {
-    $caption = drupal_substr($caption, 0, $trim_length - 5) . '...';
+    $caption = Unicode::substr($caption, 0, $trim_length - 5) . '...';
   }
 
   // Build the gallery id.
@@ -98,6 +101,16 @@ function template_preprocess_colorbox_formatter(&$variables) {
       break;
     default:
       $gallery_id = '';
+  }
+
+  // If gallery id is not empty add unique per-request token to avoid images being added manually to galleries.
+  if (!empty($gallery_id) && $config->get('advanced.unique_token')) {
+    // Check if gallery token has already been set, we need to reuse the token for the whole request.
+    if (is_null($gallery_token)) {
+      // We use a short token since randomness is not critical.
+      $gallery_token = Crypt::randomBytesBase64(8);
+    }
+    $gallery_id = $gallery_id . '-' . $gallery_token;
   }
 
   // Set up the $variables['image'] parameter.

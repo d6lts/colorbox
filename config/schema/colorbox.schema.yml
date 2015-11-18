@@ -74,6 +74,9 @@ colorbox.settings:
       type: mapping
       label: 'Advanced settings'
       mapping:
+        unique_token:
+          type: integer
+          label: 'Unique per-request gallery token'
         mobile_detect:
           type: integer
           label: 'Mobile detection'

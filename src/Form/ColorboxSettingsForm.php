@@ -240,6 +240,13 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
+    $form['colorbox_advanced_settings']['colorbox_unique_token'] = array(
+      '#type' => 'radios',
+      '#title' => t('Unique per-request gallery token'),
+      '#options' => array(1 => t('On'), 0 => t('Off')),
+      '#default_value' => $config->get('advanced.unique_token'),
+      '#description' => t('If On (default), Colorbox will add a unique per-request token to the gallery id to avoid images being added manually to galleries. The token was added as a security fix but some see the old behavoiur as an feature and this settings makes it possible to remove the token.'),
+    );
     $form['colorbox_advanced_settings']['colorbox_mobile_detect'] = array(
       '#type' => 'radios',
       '#title' => t('Mobile detection'),
@@ -333,6 +340,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       ->set('custom.slideshow.speed', $form_state->getValue('colorbox_slideshowspeed'))
       ->set('custom.slideshow.text_start', $form_state->getValue('colorbox_text_start'))
       ->set('custom.slideshow.text_stop', $form_state->getValue('colorbox_text_stop'))
+      ->set('advanced.unique_token', $form_state->getValue('colorbox_unique_token'))
       ->set('advanced.mobile_detect', $form_state->getValue('colorbox_mobile_detect'))
       ->set('advanced.mobile_detect_width', $form_state->getValue('colorbox_mobile_device_width'))
       ->set('advanced.caption_trim', $form_state->getValue('colorbox_caption_trim'))
