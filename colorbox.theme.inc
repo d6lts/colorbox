@@ -128,7 +128,7 @@ function theme_colorbox_image_formatter($variables) {
   }
 
   // If gallery id is not empty add unique per-request token to avoid images being added manually to galleries.
-  if (!empty($gallery_id)) {
+  if (!empty($gallery_id) && variable_get('colorbox_unique_token', 1)) {
     // Check if gallery token has already been set, we need to reuse the token for the whole request.
     if (is_null($gallery_token)) {
       // We use a short token since randomness is not critical.
