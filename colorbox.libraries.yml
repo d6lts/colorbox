@@ -1,6 +1,6 @@
 colorbox:
   remote: http://github.com/jackmoore/colorbox
-  version: "1.6.1"
+  version: VERSION
   license:
     name: MIT
     gpl-compatible: false
@@ -12,7 +12,7 @@ colorbox:
 
 colorbox-dev:
   remote: http://github.com/jackmoore/colorbox
-  version: "1.6.1"
+  version: VERSION
   license:
     name: MIT
     gpl-compatible: false
