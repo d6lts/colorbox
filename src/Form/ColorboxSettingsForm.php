@@ -294,7 +294,11 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => '<span class="element-invisible">' . t('Pages') . '</span>',
       '#default_value' => _colorbox_array_to_string($config->get('advanced.pages')),
-      '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
+      '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %user for the current user's page and %user-wildcard for every user page. %front is the front page.", array(
+        '%user' => '/user',
+        '%user-wildcard' => '/user/*',
+        '%front' => '<front>',
+      )),
     );
     $form['colorbox_advanced_settings']['colorbox_compression_type'] = array(
       '#type' => 'radios',
