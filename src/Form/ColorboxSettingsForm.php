@@ -42,8 +42,9 @@ class ColorboxSettingsForm extends ConfigFormBase {
     //$library = libraries_detect('colorbox');
 
     $form['colorbox_custom_settings'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => t('Styles and options'),
+      '#open' => TRUE,
     );
     $colorbox_styles = array(
       'default' => t('Default'),
@@ -177,7 +178,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
     );
 
     $form['colorbox_custom_settings']['colorbox_slideshow_settings'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => t('Slideshow settings'),
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
@@ -235,10 +236,8 @@ class ColorboxSettingsForm extends ConfigFormBase {
     );
 
     $form['colorbox_advanced_settings'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => t('Advanced settings'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
     );
     $form['colorbox_advanced_settings']['colorbox_unique_token'] = array(
       '#type' => 'radios',
