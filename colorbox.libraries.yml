@@ -30,14 +30,6 @@ init:
     - core/jquery
     - core/drupal
 
-admin_settings:
-  version: VERSION
-  js:
-    js/colorbox_admin_settings.js: { preprocess: false }
-  dependencies:
-    - core/jquery
-    - core/drupal
-
 plain:
   version: VERSION
   js:

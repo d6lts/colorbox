@@ -17,6 +17,16 @@ use Drupal\Core\Form\FormStateInterface;
 class ColorboxSettingsForm extends ConfigFormBase {
 
   /**
+   * A state that represents the custom settings being enabled.
+   */
+  const STATE_CUSTOM_SETTINGS = 0;
+
+  /**
+   * A state that represents the slideshow being enabled.
+   */
+  const STATE_SLIDESHOW_ENABLED = 1;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormID() {
@@ -34,12 +44,8 @@ class ColorboxSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Get all settings
+
     $config = $this->configFactory->get('colorbox.settings');
-
-    $form['#attached']['library'][] = 'colorbox/admin_settings';
-
-    //$library = libraries_detect('colorbox');
 
     $form['colorbox_custom_settings'] = array(
       '#type' => 'details',
@@ -70,21 +76,14 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#options' => array(0 => t('Default'), 1 => t('Custom')),
       '#default_value' => $config->get('custom.activate'),
       '#description' => t('Use the default or custom options for Colorbox.'),
-      '#prefix' => '<div class="colorbox-custom-settings-activate">',
-      '#suffix' => '</div>',
     );
-
-    $js_hide = $config->get('custom.activate') ? '' : ' js-hide';
-    $form['colorbox_custom_settings']['wrapper_start'] = array(
-      '#markup' => '<div class="colorbox-custom-settings' . $js_hide . '">',
-    );
-
     $form['colorbox_custom_settings']['colorbox_transition_type'] = array(
       '#type' => 'radios',
       '#title' => t('Transition type'),
       '#options' => array('elastic' => t('Elastic'), 'fade' => t('Fade'), 'none' => t('None')),
       '#default_value' => $config->get('custom.transition_type'),
       '#description' => t('The transition type.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $speed_options = array(100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600);
     $form['colorbox_custom_settings']['colorbox_transition_speed'] = array(
@@ -93,6 +92,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#options' => array_combine($speed_options, $speed_options),
       '#default_value' => $config->get('custom.transition_speed'),
       '#description' => t('Sets the speed of the fade and elastic transitions, in milliseconds.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $opacity_options = array('0', '0.10', '0.15', '0.20', '0.25', '0.30', '0.35', '0.40', '0.45', '0.50', '0.55', '0.60', '0.65', '0.70', '0.75', '0.80', '0.85', '0.90', '0.95', '1');
     $form['colorbox_custom_settings']['colorbox_opacity'] = array(
@@ -101,6 +101,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#options' => array_combine($opacity_options, $opacity_options),
       '#default_value' => $config->get('custom.opacity'),
       '#description' => t('The overlay opacity level. Range: 0 to 1.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_text_current'] = array(
       '#type' => 'textfield',
@@ -108,6 +109,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.text_current'),
       '#size' => 30,
       '#description' => t('Text format for the content group / gallery count. {current} and {total} are detected and replaced with actual numbers while Colorbox runs.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_text_previous'] = array(
       '#type' => 'textfield',
@@ -115,6 +117,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.text_previous'),
       '#size' => 30,
       '#description' => t('Text for the previous button in a shared relation group.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_text_next'] = array(
       '#type' => 'textfield',
@@ -122,6 +125,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.text_next'),
       '#size' => 30,
       '#description' => t('Text for the next button in a shared relation group.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_text_close'] = array(
       '#type' => 'textfield',
@@ -129,6 +133,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.text_close'),
       '#size' => 30,
       '#description' => t('Text for the close button. The "Esc" key will also close Colorbox.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_maxwidth'] = array(
       '#type' => 'textfield',
@@ -136,6 +141,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.maxwidth'),
       '#size' => 30,
       '#description' => t('Set a maximum width for loaded content. Example: "100%", 500, "500px".'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_maxheight'] = array(
       '#type' => 'textfield',
@@ -143,6 +149,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.maxheight'),
       '#size' => 30,
       '#description' => t('Set a maximum height for loaded content. Example: "100%", 500, "500px".'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_initialwidth'] = array(
       '#type' => 'textfield',
@@ -150,6 +157,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.initialwidth'),
       '#size' => 30,
       '#description' => t('Set the initial width, prior to any content being loaded. Example: "100%", 500, "500px".'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_initialheight'] = array(
       '#type' => 'textfield',
@@ -157,24 +165,28 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.initialheight'),
       '#size' => 30,
       '#description' => t('Set the initial height, prior to any content being loaded. Example: "100%", 500, "500px".'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_overlayclose'] = array(
       '#type' => 'checkbox',
       '#title' => t('Overlay close'),
       '#default_value' => $config->get('custom.overlayclose'),
       '#description' => t('Enable closing Colorbox by clicking on the background overlay.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_fixed'] = array(
       '#type' => 'checkbox',
       '#title' => t('Fixed'),
       '#default_value' => $config->get('custom.fixed'),
       '#description' => t('If the Colorbox should be displayed in a fixed position within the visitor\'s viewport or relative to the document.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_scrolling'] = array(
       '#type' => 'checkbox',
       '#title' => t('Scrollbars'),
       '#default_value' => $config->get('custom.scrolling'),
       '#description' => t('If unchecked, Colorbox will hide scrollbars for overflowing content. This could be used on conjunction with the resize method for a smoother transition if you are appending content to an already open instance of Colorbox.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
 
     $form['colorbox_custom_settings']['colorbox_slideshow_settings'] = array(
@@ -182,6 +194,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#title' => t('Slideshow settings'),
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
     $form['colorbox_custom_settings']['colorbox_slideshow_settings']['colorbox_slideshow'] = array(
       '#type' => 'radios',
@@ -189,20 +202,13 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#options' => array(0 => t('Off'), 1 => t('On')),
       '#default_value' => $config->get('custom.slideshow.slideshow'),
       '#description' => t('An automatic slideshow to a content group / gallery.'),
-      '#prefix' => '<div class="colorbox-slideshow-settings-activate">',
-      '#suffix' => '</div>',
     );
-
-    $js_hide = $config->get('custom.slideshow.slideshow') ? '' : ' js-hide';
-    $form['colorbox_custom_settings']['colorbox_slideshow_settings']['wrapper_start'] = array(
-      '#markup' => '<div class="colorbox-slideshow-settings' . $js_hide . '">',
-    );
-
     $form['colorbox_custom_settings']['colorbox_slideshow_settings']['colorbox_slideshowauto'] = array(
       '#type' => 'checkbox',
       '#title' => t('Slideshow autostart'),
       '#default_value' => $config->get('custom.slideshow.auto'),
       '#description' => t('If the slideshow should automatically start to play.'),
+      '#states' => $this->getState(static::STATE_SLIDESHOW_ENABLED),
     );
     $slideshow_options = array(1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000);
     $form['colorbox_custom_settings']['colorbox_slideshow_settings']['colorbox_slideshowspeed'] = array(
@@ -211,6 +217,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#options' => array_combine($slideshow_options, $slideshow_options),
       '#default_value' => $config->get('custom.slideshow.speed'),
       '#description' => t('Sets the speed of the slideshow, in milliseconds.'),
+      '#states' => $this->getState(static::STATE_SLIDESHOW_ENABLED),
     );
     $form['colorbox_custom_settings']['colorbox_slideshow_settings']['colorbox_text_start'] = array(
       '#type' => 'textfield',
@@ -218,6 +225,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.slideshow.text_start'),
       '#size' => 30,
       '#description' => t('Text for the slideshow start button.'),
+      '#states' => $this->getState(static::STATE_SLIDESHOW_ENABLED),
     );
     $form['colorbox_custom_settings']['colorbox_slideshow_settings']['colorbox_text_stop'] = array(
       '#type' => 'textfield',
@@ -225,14 +233,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('custom.slideshow.text_stop'),
       '#size' => 30,
       '#description' => t('Text for the slideshow stop button.'),
-    );
-
-    $form['colorbox_custom_settings']['colorbox_slideshow_settings']['wrapper_stop'] = array(
-      '#markup' => '</div>',
-    );
-
-    $form['colorbox_custom_settings']['wrapper_stop'] = array(
-      '#markup' => '</div>',
+      '#states' => $this->getState(static::STATE_SLIDESHOW_ENABLED),
     );
 
     $form['colorbox_advanced_settings'] = array(
@@ -318,7 +319,6 @@ class ColorboxSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    // Get config factory
     $config = $this->configFactory->getEditable('colorbox.settings');
 
     $config
@@ -363,6 +363,31 @@ class ColorboxSettingsForm extends ConfigFormBase {
     $config->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Get one of the pre-defined states used in this form.
+   *
+   * @param string $state
+   *   The state to get that matches one of the state class constants.
+   *
+   * @return array
+   *   A corresponding form API state.
+   */
+  protected function getState($state) {
+    $states = [
+      static::STATE_CUSTOM_SETTINGS => [
+        'visible' => [
+          ':input[name="colorbox_custom_settings_activate"]' => ['value' => '1'],
+        ],
+      ],
+      static::STATE_SLIDESHOW_ENABLED => [
+        'visible' => [
+          ':input[name="colorbox_slideshow"]' => ['value' => '1']
+        ],
+      ],
+    ];
+    return $states[$state];
   }
 
 }
