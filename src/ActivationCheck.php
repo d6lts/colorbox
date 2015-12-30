@@ -67,7 +67,7 @@ class ActivationCheck implements ActivationCheckInterface {
     }
     // Convert path to lowercase. This allows comparison of the same path
     // with different case. Ex: /Page, /page, /PAGE.
-    $pages = Unicode::strtolower(_colorbox_array_to_string($this->settings->get('advanced.pages')));
+    $pages = Unicode::strtolower($this->settings->get('advanced.pages'));
 
     // Compare the lowercase path alias (if any) and internal path.
     $path = $this->currentPath->getPath();

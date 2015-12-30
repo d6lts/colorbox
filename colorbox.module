@@ -146,28 +146,3 @@ function colorbox_libraries_info() {
 
   return $libraries;
 }
-
-/**
- * Converts a text with lines (\n) into an array of lines.
- *
- * @param string $text
- *
- * @return array
- *   Array with as many items as non-empty lines in the text
- */
-function _colorbox_string_to_array($text) {
-  $text = str_replace("\r\n", "\n", $text);
-  return array_filter(explode("\n", $text), 'trim');
-}
-
-/**
- * Converts an array of lines into an text with lines (\n).
- *
- * @param array $array
- *
- * @return string
- *   Text with lines
- */
-function _colorbox_array_to_string($array) {
-  return implode("\r\n", $array);
-}
