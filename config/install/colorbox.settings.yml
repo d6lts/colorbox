@@ -28,7 +28,7 @@ advanced:
   caption_trim: '0'
   caption_trim_length: '75'
   visibility: '0'
-  pages: |
+  pages: |-
     /admin*
     /imagebrowser*
     /img_assist*
