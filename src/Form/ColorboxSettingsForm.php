@@ -85,20 +85,18 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#description' => t('The transition type.'),
       '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
-    $speed_options = array(100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600);
     $form['colorbox_custom_settings']['colorbox_transition_speed'] = array(
       '#type' => 'select',
       '#title' => t('Transition speed'),
-      '#options' => array_combine($speed_options, $speed_options),
+      '#options' => $this->optionsRange(100, 600, 50),
       '#default_value' => $config->get('custom.transition_speed'),
       '#description' => t('Sets the speed of the fade and elastic transitions, in milliseconds.'),
       '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
-    $opacity_options = array('0', '0.10', '0.15', '0.20', '0.25', '0.30', '0.35', '0.40', '0.45', '0.50', '0.55', '0.60', '0.65', '0.70', '0.75', '0.80', '0.85', '0.90', '0.95', '1');
     $form['colorbox_custom_settings']['colorbox_opacity'] = array(
       '#type' => 'select',
       '#title' => t('Opacity'),
-      '#options' => array_combine($opacity_options, $opacity_options),
+      '#options' => $this->optionsRange(0, 1, 0.05),
       '#default_value' => $config->get('custom.opacity'),
       '#description' => t('The overlay opacity level. Range: 0 to 1.'),
       '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
@@ -210,11 +208,10 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#description' => t('If the slideshow should automatically start to play.'),
       '#states' => $this->getState(static::STATE_SLIDESHOW_ENABLED),
     );
-    $slideshow_options = array(1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000);
     $form['colorbox_custom_settings']['colorbox_slideshow_settings']['colorbox_slideshowspeed'] = array(
       '#type' => 'select',
       '#title' => t('Slideshow speed'),
-      '#options' => array_combine($slideshow_options, $slideshow_options),
+      '#options' => $this->optionsRange(1000, 6000, 500),
       '#default_value' => $config->get('custom.slideshow.speed'),
       '#description' => t('Sets the speed of the slideshow, in milliseconds.'),
       '#states' => $this->getState(static::STATE_SLIDESHOW_ENABLED),
@@ -273,11 +270,10 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('advanced.caption_trim'),
       '#description' => t('If the caption should be made shorter in the Colorbox to avoid layout problems. The default is to shorten for the example styles, they need it, but not for other styles.'),
     );
-    $trim_options = array(40, 45, 50, 55, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120);
     $form['colorbox_advanced_settings']['colorbox_caption_trim_length'] = array(
       '#type' => 'select',
       '#title' => t('Caption max length'),
-      '#options' => array_combine($trim_options, $trim_options),
+      '#options' => $this->optionsRange(40, 120, 5),
       '#default_value' => $config->get('advanced.caption_trim_length'),
       '#states' => array(
         'visible' => array(
@@ -388,6 +384,24 @@ class ColorboxSettingsForm extends ConfigFormBase {
       ],
     ];
     return $states[$state];
+  }
+
+  /**
+   * Create a range for a series of options.
+   *
+   * @param number $start
+   *   The start of the range.
+   * @param number $end
+   *   The end of the range.
+   * @param number $step
+   *   The interval between elements.
+   *
+   * @return array
+   *   An options array for the given range.
+   */
+  protected function optionsRange($start, $end, $step) {
+    $range = range($start, $end, $step);
+    return array_combine($range, $range);
   }
 
 }
