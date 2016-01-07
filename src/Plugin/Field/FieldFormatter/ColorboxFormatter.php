@@ -319,6 +319,12 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       );
     }
 
+    // Attach the Colorbox JS and CSS.
+    $attachment = \Drupal::service('colorbox.attachment');
+    if ($attachment->isApplicable()) {
+      $attachment->attach($elements);
+    }
+
     return $elements;
   }
 

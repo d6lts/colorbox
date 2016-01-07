@@ -8,7 +8,7 @@
 /**
  * The default path to the Colorbox directory.
  */
-define('COLORBOX_MIN_PLUGIN_VERSION', '1.5.14');
+define('COLORBOX_MIN_PLUGIN_VERSION', '1.6.1');
 
 
 /**
@@ -25,16 +25,6 @@ function colorbox_theme() {
       'file' => 'colorbox.inc',
     ),
   );
-}
-
-/**
- * Implements hook_page_attachments().
- */
-function colorbox_page_attachments(array &$page) {
-  $attachment = \Drupal::service('colorbox.attachment');
-  if ($attachment->isApplicable()) {
-    $attachment->attach($page);
-  }
 }
 
 /**
