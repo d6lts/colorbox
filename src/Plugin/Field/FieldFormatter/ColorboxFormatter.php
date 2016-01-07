@@ -7,9 +7,17 @@
 
 namespace Drupal\colorbox\Plugin\Field\FieldFormatter;
 
-use Drupal\image\Plugin\Field\FieldFormatter\ImageFormatterBase;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\image\Plugin\Field\FieldFormatter\ImageFormatterBase;
 
 /**
  * Plugin implementation of the 'colorbox' formatter.
@@ -23,7 +31,54 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class ColorboxFormatter extends ImageFormatterBase {
+class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPluginInterface {
+
+
+  /**
+   * The image style entity storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $imageStyleStorage;
+
+  /**
+   * Constructs an ImageFormatter object.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the formatter.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the formatter is associated.
+   * @param array $settings
+   *   The formatter settings.
+   * @param string $label
+   *   The formatter label display setting.
+   * @param string $view_mode
+   *   The view mode.
+   * @param array $third_party_settings
+   *   Any third party settings settings.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityStorageInterface $image_style_storage) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+    $this->imageStyleStorage = $image_style_storage;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('entity.manager')->getStorage('image_style')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -47,6 +102,7 @@ class ColorboxFormatter extends ImageFormatterBase {
     $image_styles = image_style_options(FALSE);
     $image_styles_hide = $image_styles;
     $image_styles_hide['hide'] = t('Hide (do not display image)');
+
     $element['colorbox_node_style'] = array(
       '#title' => t('Content image style'),
       '#type' => 'select',
@@ -214,47 +270,53 @@ class ColorboxFormatter extends ImageFormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = array();
-
-    $entity = $items->getEntity();
     $settings = $this->getSettings();
+    $files = $this->getEntitiesToView($items, $langcode);
+
+    // Early opt-out if the field is empty.
+    if (empty($files)) {
+      return $elements;
+    }
 
     // Collect cache tags to be added for each item in the field.
     $cache_tags = array();
     if (!empty($settings['colorbox_node_style'])) {
-      $image_style = entity_load('image_style', $settings['colorbox_node_style']);
+      $image_style = $this->imageStyleStorage->load($settings['colorbox_node_style']);
       $cache_tags = $image_style->getCacheTags();
     }
     $cache_tags_first = array();
     if (!empty($settings['colorbox_node_style_first'])) {
-      $image_style_first = entity_load('image_style', $settings['colorbox_node_style_first']);
+      $image_style_first = $this->imageStyleStorage->load($settings['colorbox_node_style_first']);
       $cache_tags_first = $image_style_first->getCacheTags();
     }
 
-    foreach ($items as $delta => $item) {
-      if ($item->entity) {
-        // Extract field item attributes for the theme function, and unset them
-        // from the $item so that the field template does not re-render them.
-        $item_attributes = $item->_attributes;
-        unset($item->_attributes);
-
-        if ($delta == 0 && !empty($settings['colorbox_node_style_first'])) {
-          $settings['style_first'] = TRUE;
-        }
-        else {
-          $settings['style_first'] = FALSE;
-        }
-
-        $elements[$delta] = array(
-          '#theme' => 'colorbox_formatter',
-          '#item' => $item,
-          '#item_attributes' => $item_attributes,
-          '#entity' => $entity,
-          '#settings' => $settings,
-          '#cache' => array(
-            'tags' => $settings['style_first'] ? $cache_tags_first : $cache_tags,
-          ),
-        );
+    foreach ($files as $delta => $file) {
+      // Check if first image should have separate image style.
+      if ($delta == 0 && !empty($settings['colorbox_node_style_first'])) {
+        $settings['style_first'] = TRUE;
+        $cache_tags = Cache::mergeTags($cache_tags_first, $file->getCacheTags());
       }
+      else {
+        $settings['style_first'] = FALSE;
+        $cache_tags = Cache::mergeTags($cache_tags, $file->getCacheTags());
+      }
+
+      // Extract field item attributes for the theme function, and unset them
+      // from the $item so that the field template does not re-render them.
+      $item = $file->_referringItem;
+      $item_attributes = $item->_attributes;
+      unset($item->_attributes);
+
+      $elements[$delta] = array(
+        '#theme' => 'colorbox_formatter',
+        '#item' => $item,
+        '#item_attributes' => $item_attributes,
+        '#entity' => $items->getEntity(),
+        '#settings' => $settings,
+        '#cache' => array(
+          'tags' => $cache_tags,
+        ),
+      );
     }
 
     return $elements;
