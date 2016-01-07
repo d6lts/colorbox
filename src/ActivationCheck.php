@@ -33,6 +33,14 @@ class ActivationCheck implements ActivationCheckInterface {
    * {@inheritdoc}
    */
   public function isActive() {
+    // Make it possible deactivate Colorbox with
+    // parameter ?colorbox=no in the url.
+    if (isset($_GET['colorbox']) && $_GET['colorbox'] == 'no') {
+      return FALSE;
+    }
+    else {
+      return TRUE;
+    }
   }
 
 }
