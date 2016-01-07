@@ -89,12 +89,6 @@ colorbox.settings:
         caption_trim_length:
           type: integer
           label: 'Caption max length'
-        visibility:
-          type: integer
-          label: 'Show Colorbox on specific pages'
-        pages:
-          type: string
-          label: 'Pages'
         compression_type:
           type: string
           label: 'Colorbox compression level'

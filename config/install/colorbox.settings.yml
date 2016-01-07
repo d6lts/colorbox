@@ -27,18 +27,6 @@ advanced:
   mobile_device_width: '480px'
   caption_trim: '0'
   caption_trim_length: '75'
-  visibility: '0'
-  pages: |-
-    /admin*
-    /imagebrowser*
-    /img_assist*
-    /imce*
-    /node/add/*
-    /node/*/edit
-    /print/*
-    /printpdf/*
-    /system/ajax
-    /system/ajax/*
   compression_type: 'minified'
 insert:
   image_style: ''

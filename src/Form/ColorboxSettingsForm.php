@@ -281,22 +281,6 @@ class ColorboxSettingsForm extends ConfigFormBase {
         ),
       ),
     );
-    $form['colorbox_advanced_settings']['colorbox_visibility'] = array(
-      '#type' => 'radios',
-      '#title' => t('Show Colorbox on specific pages'),
-      '#options' => array(0 => t('All pages except those listed'), 1 => t('Only the listed pages')),
-      '#default_value' => $config->get('advanced.visibility'),
-    );
-    $form['colorbox_advanced_settings']['colorbox_pages'] = array(
-      '#type' => 'textarea',
-      '#title' => '<span class="element-invisible">' . t('Pages') . '</span>',
-      '#default_value' => $config->get('advanced.pages'),
-      '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %user for the current user's page and %user-wildcard for every user page. %front is the front page.", array(
-        '%user' => '/user',
-        '%user-wildcard' => '/user/*',
-        '%front' => '<front>',
-      )),
-    );
     $form['colorbox_advanced_settings']['colorbox_compression_type'] = array(
       '#type' => 'radios',
       '#title' => t('Choose Colorbox compression level'),
@@ -344,8 +328,6 @@ class ColorboxSettingsForm extends ConfigFormBase {
       ->set('advanced.mobile_detect_width', $form_state->getValue('colorbox_mobile_device_width'))
       ->set('advanced.caption_trim', $form_state->getValue('colorbox_caption_trim'))
       ->set('advanced.caption_trim_length', $form_state->getValue('colorbox_caption_trim_length'))
-      ->set('advanced.visibility', $form_state->getValue('colorbox_visibility'))
-      ->set('advanced.pages', $form_state->getValue('colorbox_pages'))
       ->set('advanced.compression_type', $form_state->getValue('colorbox_compression_type'));
 
     if ($form_state->getValue('colorbox_image_style')) {
