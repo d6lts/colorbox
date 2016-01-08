@@ -13,7 +13,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 /**
  * An implementation of PageAttachmentInterface for the colorbox library.
  */
-class ColorboxAttachment implements PageAttachmentInterface {
+class ColorboxAttachment implements ElementAttachmentInterface {
   /**
    * The service to determin if colorbox should be activated.
    *

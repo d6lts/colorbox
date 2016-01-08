@@ -5,15 +5,15 @@ namespace Drupal\colorbox;
 /**
  * An interface for attaching things to the built page.
  */
-interface PageAttachmentInterface {
+interface ElementAttachmentInterface {
 
   /**
    * Attach information to the page array.
    *
-   * @param array $page
+   * @param array $element
    *   The page array.
    */
-  public function attach(array &$page);
+  public function attach(array &$element);
 
   /**
    * Check if the attachment should be added to the current page.
