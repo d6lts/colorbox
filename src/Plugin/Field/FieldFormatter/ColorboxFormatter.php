@@ -7,13 +7,11 @@
 
 namespace Drupal\colorbox\Plugin\Field\FieldFormatter;
 
+use Drupal\colorbox\PageAttachmentInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Cache\Cache;
@@ -58,10 +56,13 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings settings.
+   * @param \Drupal\colorbox\PageAttachmentInterface $attachment
+   *   Allow the library to be attached to the page.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityStorageInterface $image_style_storage) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityStorageInterface $image_style_storage, PageAttachmentInterface $attachment) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->imageStyleStorage = $image_style_storage;
+    $this->attachment = $attachment;
   }
 
   /**
@@ -76,7 +77,8 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('entity.manager')->getStorage('image_style')
+      $container->get('entity.manager')->getStorage('image_style'),
+      $container->get('colorbox.attachment')
     );
   }
 
@@ -320,9 +322,8 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     }
 
     // Attach the Colorbox JS and CSS.
-    $attachment = \Drupal::service('colorbox.attachment');
-    if ($attachment->isApplicable()) {
-      $attachment->attach($elements);
+    if ($this->attachment->isApplicable()) {
+      $this->attachment->attach($elements);
     }
 
     return $elements;
