@@ -7,8 +7,8 @@
 
 namespace Drupal\colorbox;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Implementation of ActivationCheckInterface.
@@ -23,24 +23,25 @@ class ActivationCheck implements ActivationCheckInterface {
   protected $settings;
 
   /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $request;
+
+  /**
    * Create an instace of ActivationCheck.
    */
-  public function __construct(ConfigFactoryInterface $config) {
+  public function __construct(ConfigFactoryInterface $config, RequestStack $request) {
     $this->settings = $config->get('colorbox.settings');
+    $this->request = $request->getCurrentRequest();
   }
 
   /**
    * {@inheritdoc}
    */
   public function isActive() {
-    // Make it possible deactivate Colorbox with
-    // parameter ?colorbox=no in the url.
-    if (isset($_GET['colorbox']) && $_GET['colorbox'] == 'no') {
-      return FALSE;
-    }
-    else {
-      return TRUE;
-    }
+    return $this->request->get('colorbox') !== 'no';
   }
 
 }
