@@ -36,13 +36,6 @@ class ColorboxAttachment implements PageAttachmentInterface {
   protected $settings;
 
   /**
-   * If colorbox has already been added to the page.
-   *
-   * @var bool
-   */
-  static $alreadyAdded = FALSE;
-
-  /**
    * Create an instance of ColorboxAttachment.
    */
   public function __construct(ActivationCheckInterface $activation, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config) {
@@ -55,15 +48,13 @@ class ColorboxAttachment implements PageAttachmentInterface {
    * {@inheritdoc}
    */
   public function isApplicable() {
-    return !drupal_installation_attempted() && !static::$alreadyAdded && $this->activation->isActive();
+    return !drupal_installation_attempted() && $this->activation->isActive();
   }
 
   /**
    * {@inheritdoc}
    */
   public function attach(array &$page) {
-    static::$alreadyAdded = TRUE;
-
     if ($this->settings->get('custom.activate')) {
       $js_settings = array(
         'transition' => $this->settings->get('custom.transition_type'),
