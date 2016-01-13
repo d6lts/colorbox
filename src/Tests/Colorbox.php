@@ -76,7 +76,7 @@ class Colorbox extends ImageFieldTestBase {
     $this->assertScript('modules/colorbox/styles/default/colorbox_style.js');
     $this->assertScript('modules/colorbox/js/colorbox.js');
     // Ensure the image appears with the relevant colorbox markup.
-    $this->assertRaw('rel="gallery-article-1" class="colorbox"');
+    $this->assertRaw('rel="gallery-article-1-');
 
     // The script should not appear by default on the homepage.
     $this->drupalGet('<front>');
