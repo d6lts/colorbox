@@ -6,7 +6,7 @@ field.formatter.settings.colorbox:
       type: string
       label: 'Node Style'
     colorbox_node_style_first:
-      type: boolean
+      type: string
       label: 'Node style first'
     colorbox_image_style:
       type: string

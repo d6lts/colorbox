@@ -8,6 +8,7 @@
 use Drupal\Core\Template\Attribute;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Unicode;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Prepares variables for colorbox formatter templates.
@@ -27,10 +28,11 @@ function template_preprocess_colorbox_formatter(&$variables) {
 
   $item = $variables['item'];
   $item_attributes = isset($variables['item_attributes']) ? $variables['item_attributes'] : array();
-
   $entity = $variables['entity'];
   $settings = $variables['settings'];
   $variables = array(); // Reset the $variables parameter.
+  $image_uri = $item->entity->getFileUri();
+  $classes_array = array('colorbox');
 
   // Build the caption.
   $entity_title = $entity->label();
@@ -114,16 +116,14 @@ function template_preprocess_colorbox_formatter(&$variables) {
   }
 
   // Set up the $variables['image'] parameter.
-  if ($settings['style_first']) {
-    $variables['image'] = array(
-      '#theme' => 'image_style',
-      '#style_name' => $settings['colorbox_node_style_first'],
-    );
+  if ($settings['style_name'] == 'hide') {
+    $variables['image'] = array();
+    $classes_array[] = 'js-hide';
   }
-  elseif (!empty($settings['colorbox_node_style'])) {
+  elseif (!empty($settings['style_name'])) {
     $variables['image'] = array(
       '#theme' => 'image_style',
-      '#style_name' => $settings['colorbox_node_style'],
+      '#style_name' => $settings['style_name'],
     );
   }
   else {
@@ -131,34 +131,32 @@ function template_preprocess_colorbox_formatter(&$variables) {
       '#theme' => 'image',
     );
   }
-  $variables['image']['#attributes'] = $item_attributes;
 
-  // Do not output an empty 'title' attribute.
-  if (Unicode::strlen($item->title) != 0) {
-    $variables['image']['#title'] = $item->title;
+  if (!empty($variables['image'])) {
+    $variables['image']['#attributes'] = $item_attributes;
+
+    // Do not output an empty 'title' attribute.
+    if (Unicode::strlen($item->title) != 0) {
+      $variables['image']['#title'] = $item->title;
+    }
+
+    foreach (array('width', 'height', 'alt') as $key) {
+      $variables['image']["#$key"] = $item->$key;
+    }
+
+    $variables['image']['#uri'] = empty($item->uri) ? $image_uri : $item->uri;
   }
-
-  foreach (array('width', 'height', 'alt') as $key) {
-    $variables['image']["#$key"] = $item->$key;
-  }
-
-  $image_uri = $item->entity->getFileUri();
-  $variables['image']['#uri'] = empty($item->uri) ? $image_uri : $item->uri;
 
   if (!empty($settings['colorbox_image_style'])) {
-    $style = entity_load('image_style', $settings['colorbox_image_style']);
+    $style = ImageStyle::load($settings['colorbox_image_style']);
     $variables['url'] = $style->buildUrl($image_uri);
   }
   else {
     $variables['url'] = file_create_url($image_uri);
   }
 
-  $class = array('colorbox');
-  if ($settings['colorbox_node_style'] == 'hide') {
-    $class[] = 'js-hide';
-  }
   $variables['attributes'] = new Attribute();
   $variables['attributes']['title'] = $caption;
   $variables['attributes']['rel'] = $gallery_id;
-  $variables['attributes']['class'] = $class;
+  $variables['attributes']['class'] = $classes_array;
 }

@@ -282,7 +282,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
 
     // Collect cache tags to be added for each item in the field.
     $cache_tags = array();
-    if (!empty($settings['colorbox_node_style'])) {
+    if (!empty($settings['colorbox_node_style']) && $settings['colorbox_node_style'] != 'hide') {
       $image_style = $this->imageStyleStorage->load($settings['colorbox_node_style']);
       $cache_tags = $image_style->getCacheTags();
     }
@@ -296,10 +296,12 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       // Check if first image should have separate image style.
       if ($delta == 0 && !empty($settings['colorbox_node_style_first'])) {
         $settings['style_first'] = TRUE;
+        $settings['style_name'] = $settings['colorbox_node_style_first'];
         $cache_tags = Cache::mergeTags($cache_tags_first, $file->getCacheTags());
       }
       else {
         $settings['style_first'] = FALSE;
+        $settings['style_name'] = $settings['colorbox_node_style'];
         $cache_tags = Cache::mergeTags($cache_tags, $file->getCacheTags());
       }
 
