@@ -155,6 +155,23 @@ function template_preprocess_colorbox_formatter(&$variables) {
     $variables['url'] = file_create_url($image_uri);
   }
 
+  // if File Entity module is enabled, load attribute values from file entity.
+  if(\Drupal::moduleHandler()->moduleExists('file_entity')) {
+    // file id of the save file.
+    $fid = $item->target_id;
+    // load file object
+    $file_obj = file_load($fid);
+    $file_array = $file_obj->toArray();
+    // populate the image title
+    if (Unicode::strlen($file_array['field_image_title_text'][0]['value']) != 0 && empty($item->title) && $settings['colorbox_caption'] == 'title') {
+      $caption = $file_array['field_image_title_text'][0]['value'];
+    }
+    // populate the image alt text.
+    if (!empty($file_array['field_image_alt_text'][0]['value']) && empty($item->alt) && $settings['colorbox_caption'] == 'alt') {
+      $caption = $file_array['field_image_alt_text'][0]['value'];
+    }
+  }
+
   $variables['attributes'] = new Attribute();
   $variables['attributes']['title'] = $caption;
   $variables['attributes']['rel'] = $gallery_id;
