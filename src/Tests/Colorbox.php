@@ -93,7 +93,8 @@ class Colorbox extends ImageFieldTestBase {
    */
   public function assertScript($script_url, $exists = TRUE) {
     $version = \Drupal::VERSION;
-    $this->{$exists ? 'assertRaw' : 'assertNoRaw'}("<script src=\"{$GLOBALS['base_url']}/$script_url?v=$version\"></script>");
+    $base_path = \Drupal::request()->getBasePath();
+    $this->{$exists ? 'assertRaw' : 'assertNoRaw'}("<script src=\"$base_path/$script_url?v=$version\"></script>");
   }
 
 }
