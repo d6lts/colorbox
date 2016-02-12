@@ -23,7 +23,6 @@ function colorbox_theme() {
         'settings' => NULL,
       ),
       'file' => 'colorbox.theme.inc',
-      'template' => 'colorbox-formatter',
     ),
   );
 }
