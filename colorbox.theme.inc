@@ -30,7 +30,6 @@ function template_preprocess_colorbox_formatter(&$variables) {
   $item_attributes = isset($variables['item_attributes']) ? $variables['item_attributes'] : array();
   $entity = $variables['entity'];
   $settings = $variables['settings'];
-  $variables = array(); // Reset the $variables parameter.
   $image_uri = $item->entity->getFileUri();
   $classes_array = array('colorbox');
 
@@ -172,7 +171,6 @@ function template_preprocess_colorbox_formatter(&$variables) {
     }
   }
 
-  $variables['attributes'] = new Attribute();
   $variables['attributes']['title'] = $caption;
   $variables['attributes']['rel'] = $gallery_id;
   $variables['attributes']['class'] = $classes_array;
