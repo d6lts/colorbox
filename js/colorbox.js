@@ -1,6 +1,6 @@
 (function ($, Drupal) {
 
-  "use strict";
+  'use strict';
 
   Drupal.behaviors.initColorbox = {
     attach: function (context, settings) {
@@ -10,7 +10,7 @@
 
       if (settings.colorbox.mobiledetect && window.matchMedia) {
         // Disable Colorbox for small screens.
-        var mq = window.matchMedia("(max-device-width: " + settings.colorbox.mobiledevicewidth + ")");
+        var mq = window.matchMedia('(max-device-width: ' + settings.colorbox.mobiledevicewidth + ')');
         if (mq.matches) {
           return;
         }
