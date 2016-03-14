@@ -85,21 +85,3 @@ plugin itself.
 The command will download the plugin and unpack it in "libraries/".
 It is possible to add another path as an option to the command, but not
 recommended unless you know what you are doing.
-
-
-Image in Colorbox not displayed in Internet Explorer 8:
--------------------------------------------------------
-
-If your theme has CSS like this (popular in responsive design):
-
-img {
-  max-width: 100%;
-}
-
-Internet Explorer 8 will have problems with showing images in the Colorbox.
-The fix is to add this to the theme CSS:
-
-#cboxLoadedContent img {
-  max-width: none;
-}
-
