@@ -46,7 +46,7 @@ Installation:
 2. Download and unpack the Colorbox plugin in "libraries".
     Make sure the path to the plugin file becomes:
     "libraries/colorbox/jquery.colorbox-min.js"
-   Link: https://github.com/jackmoore/colorbox/archive/1.x.zip
+   Link: https://github.com/jackmoore/colorbox/archive/master.zip
    Drush users can use the command "drush colorbox-plugin".
 3. Go to "Administer" -> "Extend" and enable the Colorbox module.
 
