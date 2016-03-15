@@ -5,7 +5,6 @@
  * Colorbox theme functions.
  */
 
-use Drupal\Core\Template\Attribute;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Unicode;
 use Drupal\image\Entity\ImageStyle;
