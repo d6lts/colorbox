@@ -9,6 +9,10 @@
  * Implements hook_requirements().
  */
 function colorbox_requirements($phase) {
+  if ($phase != 'runtime') {
+    return array();
+  }
+
   $library = \Drupal::service('library.discovery')->getLibraryByName('colorbox', 'colorbox');
   $library_exists = file_exists(DRUPAL_ROOT . '/' . $library['js'][0]['data']);
 
