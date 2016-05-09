@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Cache\Cache;
@@ -329,6 +330,58 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     }
 
     return $elements;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    $dependencies = parent::calculateDependencies();
+    $style_ids = array();
+    $style_ids[] = $this->getSetting('colorbox_node_style');
+    if (!empty($settings['colorbox_node_style_first'])) {
+      $style_ids[] = $this->getSetting('colorbox_node_style_first');
+    }
+    $style_ids[] = $this->getSetting('colorbox_image_style');
+    /** @var \Drupal\image\ImageStyleInterface $style */
+    foreach ($style_ids as $style_id) {
+      if ($style_id && $style = ImageStyle::load($style_id)) {
+        // If this formatter uses a valid image style to display the image, add
+        // the image style configuration entity as dependency of this formatter.
+        $dependencies[$style->getConfigDependencyKey()][] = $style->getConfigDependencyName();
+      }
+    }
+
+    return $dependencies;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function onDependencyRemoval(array $dependencies) {
+    $changed = parent::onDependencyRemoval($dependencies);
+    $style_ids = array();
+    $style_ids['colorbox_node_style'] = $this->getSetting('colorbox_node_style');
+    if (!empty($settings['colorbox_node_style_first'])) {
+      $style_ids['colorbox_node_style_first'] = $this->getSetting('colorbox_node_style_first');
+    }
+    $style_ids['colorbox_image_style'] = $this->getSetting('colorbox_image_style');
+    /** @var \Drupal\image\ImageStyleInterface $style */
+    foreach ($style_ids as $name => $style_id) {
+      if ($style_id && $style = ImageStyle::load($style_id)) {
+        if (!empty($dependencies[$style->getConfigDependencyKey()][$style->getConfigDependencyName()])) {
+          $replacement_id = $this->imageStyleStorage->getReplacementId($style_id);
+          // If a valid replacement has been provided in the storage, replace the
+          // image style with the replacement and signal that the formatter plugin
+          // settings were updated.
+          if ($replacement_id && ImageStyle::load($replacement_id)) {
+            $this->setSetting($name, $replacement_id);
+            $changed = TRUE;
+          }
+        }
+      }
+    }
+    return $changed;
   }
 
 }
