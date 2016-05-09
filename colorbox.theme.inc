@@ -161,7 +161,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
     $file_obj = file_load($fid);
     $file_array = $file_obj->toArray();
     // populate the image title
-    if (Unicode::strlen($file_array['field_image_title_text'][0]['value']) != 0 && empty($item->title) && $settings['colorbox_caption'] == 'title') {
+    if (!empty($file_array['field_image_title_text'][0]['value']) && empty($item->title) && $settings['colorbox_caption'] == 'title') {
       $caption = $file_array['field_image_title_text'][0]['value'];
     }
     // populate the image alt text.
