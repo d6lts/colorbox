@@ -63,14 +63,14 @@ function colorbox_drush_help($section) {
 }
 
 /**
- * Implements drush_MODULE_post_pm_enable().
+ * Implements drush_MODULE_pre_pm_enable().
  */
-// function drush_colorbox_post_pm_enable() {
-//   $modules = func_get_args();
-//   if (in_array('colorbox', $modules)) {
-//     drush_colorbox_plugin();
-//   }
-// }
+function drush_colorbox_pre_pm_enable() {
+   $modules = drush_get_context('PM_ENABLE_MODULES');
+   if (in_array('colorbox', $modules) && !drush_get_option('skip')) {
+     drush_colorbox_plugin();
+   }
+}
 
 /**
  * Command to download the Colorbox plugin.
