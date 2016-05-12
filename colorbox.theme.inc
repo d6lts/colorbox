@@ -171,6 +171,6 @@ function template_preprocess_colorbox_formatter(&$variables) {
   }
 
   $variables['attributes']['title'] = $caption;
-  $variables['attributes']['rel'] = $gallery_id;
+  $variables['attributes']['data-colorbox-gallery'] = $gallery_id;
   $variables['attributes']['class'] = $classes_array;
 }
