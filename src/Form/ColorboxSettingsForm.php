@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @file
- * Administrative class form for the colorbox module.
- * Contains \Drupal\colorbox\Form\ColorboxSettingsForm.
- */
-
 namespace Drupal\colorbox\Form;
 
 use Drupal\Core\Form\ConfigFormBase;

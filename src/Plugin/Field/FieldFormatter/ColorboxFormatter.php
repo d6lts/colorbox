@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\colorbox\Plugin\Field\FieldFormatter\ColorboxFormatter.
- */
-
 namespace Drupal\colorbox\Plugin\Field\FieldFormatter;
 
 use Drupal\colorbox\ElementAttachmentInterface;
