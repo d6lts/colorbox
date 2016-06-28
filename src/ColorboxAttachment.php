@@ -9,11 +9,15 @@ namespace Drupal\colorbox;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * An implementation of PageAttachmentInterface for the colorbox library.
  */
 class ColorboxAttachment implements ElementAttachmentInterface {
+
+  use StringTranslationTrait;
+
   /**
    * The service to determin if colorbox should be activated.
    *
