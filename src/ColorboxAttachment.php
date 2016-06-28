@@ -83,10 +83,10 @@ class ColorboxAttachment implements ElementAttachmentInterface {
     else {
       $js_settings = array(
         'opacity' => '0.85',
-        'current' => t('{current} of {total}'),
-        'previous' => t('« Prev'),
-        'next' => t('Next »'),
-        'close' => t('Close'),
+        'current' => $this->t('{current} of {total}'),
+        'previous' => $this->t('« Prev'),
+        'next' => $this->t('Next »'),
+        'close' => $this->t('Close'),
         'maxWidth' => '98%',
         'maxHeight' => '98%',
         'fixed' => TRUE,
