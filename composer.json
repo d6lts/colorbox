@@ -9,5 +9,24 @@
   },
   "license": "GPL-2.0+",
   "minimum-stability": "dev",
-  "require": { }
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "jackmoore/colorbox",
+        "version": "master",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/jackmoore/colorbox/archive/master.zip",
+          "type": "zip"
+        },
+        "require": {
+          "composer/installers": "~1.0"
+        }
+      }
+    }
+  ],
+  "require": {
+    "jackmoore/colorbox": "master"
+  }
 }
