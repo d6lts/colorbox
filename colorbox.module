@@ -44,7 +44,7 @@ function colorbox_theme() {
         'node' => NULL,  // Left for legacy support.
         'field' => array(),
         'display_settings' => array(),
-        'delta' => null,
+        'delta' => NULL,
       ),
       'file' => 'colorbox.theme.inc',
     ),
