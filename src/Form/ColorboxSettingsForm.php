@@ -166,6 +166,13 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Enable closing Colorbox by clicking on the background overlay.'),
       '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     );
+    $form['colorbox_custom_settings']['colorbox_returnfocus'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Return focus'),
+      '#default_value' => $config->get('custom.returnfocus'),
+      '#description' => $this->t('Return focus when Colorbox exits to the element it was launched from.'),
+      '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
+    );
     $form['colorbox_custom_settings']['colorbox_fixed'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Fixed'),
@@ -306,6 +313,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       ->set('custom.text_next', $form_state->getValue('colorbox_text_next'))
       ->set('custom.text_close', $form_state->getValue('colorbox_text_close'))
       ->set('custom.overlayclose', $form_state->getValue('colorbox_overlayclose'))
+      ->set('custom.returnfocus', $form_state->getValue('colorbox_returnfocus'))
       ->set('custom.maxwidth', $form_state->getValue('colorbox_maxwidth'))
       ->set('custom.maxheight', $form_state->getValue('colorbox_maxheight'))
       ->set('custom.initialwidth', $form_state->getValue('colorbox_initialwidth'))
