@@ -183,6 +183,7 @@ function _colorbox_doheader() {
       'next' => strip_tags(variable_get('colorbox_text_next', 'Next »')),
       'close' => strip_tags(variable_get('colorbox_text_close', 'Close')),
       'overlayClose' => variable_get('colorbox_overlayclose', 1) ? TRUE : FALSE,
+      'returnFocus' => variable_get('colorbox_returnfocus', 1) ? TRUE : FALSE,
       'maxWidth' => variable_get('colorbox_maxwidth', '98%'),
       'maxHeight' => variable_get('colorbox_maxheight', '98%'),
       'initialWidth' => variable_get('colorbox_initialwidth', '300'),

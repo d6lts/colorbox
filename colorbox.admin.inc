@@ -145,6 +145,12 @@ function colorbox_admin_settings() {
     '#default_value' => variable_get('colorbox_overlayclose', 1),
     '#description' => t('Enable closing Colorbox by clicking on the background overlay.'),
   );
+  $form['colorbox_custom_settings']['colorbox_returnfocus'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Return focus'),
+    '#default_value' => variable_get('colorbox_returnfocus', 1),
+    '#description' => t('Return focus when Colorbox exits to the element it was launched from.'),
+  );
   $form['colorbox_custom_settings']['colorbox_maxwidth'] = array(
     '#type' => 'textfield',
     '#title' => t('Max width'),
