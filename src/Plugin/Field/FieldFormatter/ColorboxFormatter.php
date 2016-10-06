@@ -176,16 +176,31 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
         ),
       ),
     );
-    $element['colorbox_token_gallery'] = array(
-      '#type' => 'fieldset',
-      '#title' => $this->t('Replacement patterns'),
-      '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', array('@token_url' => 'http://drupal.org/project/token')) . '</strong>',
-      '#states' => array(
-        'visible' => array(
-          ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => array('value' => 'custom'),
+    if (\Drupal::moduleHandler()->moduleExists('token')) {
+      $element['colorbox_token_gallery'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Replacement patterns'),
+        '#theme' => 'token_tree_link',
+        '#token_types' => array($form['#entity_type'], 'file'),
+        '#states' => array(
+          'visible' => array(
+            ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => array('value' => 'custom'),
+          ),
         ),
-      ),
-    );
+      );
+    }
+    else {
+      $element['colorbox_token_gallery'] = array(
+        '#type' => 'fieldset',
+        '#title' => $this->t('Replacement patterns'),
+        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', array('@token_url' => 'http://drupal.org/project/token')) . '</strong>',
+        '#states' => array(
+          'visible' => array(
+            ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => array('value' => 'custom'),
+          ),
+        ),
+      );
+    }
 
     $caption = array(
       'auto' =>  $this->t('Automatic'),
@@ -212,16 +227,31 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
         ),
       ),
     );
-    $element['colorbox_token_caption'] = array(
-      '#type' => 'fieldset',
-      '#title' => $this->t('Replacement patterns'),
-      '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', array('@token_url' => 'http://drupal.org/project/token')) . '</strong>',
-      '#states' => array(
-        'visible' => array(
-          ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => array('value' => 'custom'),
+    if (\Drupal::moduleHandler()->moduleExists('token')) {
+      $element['colorbox_token_caption'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Replacement patterns'),
+        '#theme' => 'token_tree_link',
+        '#token_types' => array($form['#entity_type'], 'file'),
+        '#states' => array(
+          'visible' => array(
+            ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => array('value' => 'custom'),
+          ),
         ),
-      ),
-    );
+      );
+    }
+    else {
+      $element['colorbox_token_caption'] = array(
+        '#type' => 'fieldset',
+        '#title' => $this->t('Replacement patterns'),
+        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', array('@token_url' => 'http://drupal.org/project/token')) . '</strong>',
+        '#states' => array(
+          'visible' => array(
+            ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => array('value' => 'custom'),
+          ),
+        ),
+      );
+    }
 
     return $element;
   }
