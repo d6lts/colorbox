@@ -215,7 +215,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       '#type' => 'select',
       '#default_value' => $this->getSetting('colorbox_caption'),
       '#options' => $caption,
-      '#description' => $this->t('Automatic will use the first none empty value of the title, the alt text and the content title.'),
+      '#description' => $this->t('Automatic will use the first non-empty value out of the title, the alt text and the content title.'),
     );
     $element['colorbox_caption_custom'] = array(
       '#title' => $this->t('Custom caption'),
