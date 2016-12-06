@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\colorbox\PageAttachmentInterface.
- */
-
 namespace Drupal\colorbox;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -102,7 +97,8 @@ class ColorboxAttachment implements ElementAttachmentInterface {
 
     $style = $this->settings->get('custom.style');
 
-    // Give other modules the possibility to override Colorbox settings and style.
+    // Give other modules the possibility to override Colorbox
+    // settings and style.
     $this->moduleHandler->alter('colorbox_settings', $js_settings, $style);
 
     // Add colorbox js settings.
