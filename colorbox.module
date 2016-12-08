@@ -167,7 +167,7 @@ function _colorbox_doheader() {
     return; // Don't add the JavaScript and CSS multiple times.
   }
 
-  // Insert options and translated strings as javascript settings.
+  // Insert options and translated strings as JavaScript settings.
   if (variable_get('colorbox_custom_settings_activate', 0)) {
     $js_settings = array(
       'transition' => variable_get('colorbox_transition_type', 'elastic'),
