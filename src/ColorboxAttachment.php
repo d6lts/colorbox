@@ -40,7 +40,7 @@ class ColorboxAttachment implements ElementAttachmentInterface {
   public function __construct(ActivationCheckInterface $activation, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config) {
     $this->activation = $activation;
     $this->moduleHandler = $module_handler;
-    $this->settings = $config->get('colorbox.settings');;
+    $this->settings = $config->get('colorbox.settings');
   }
 
   /**
@@ -105,7 +105,7 @@ class ColorboxAttachment implements ElementAttachmentInterface {
     $page['#attached']['drupalSettings']['colorbox'] = $js_settings;
 
     // Add and initialise the Colorbox plugin.
-    if ($this->settings->get('advanced.compression_type' == 'minified')) {
+    if ($this->settings->get('advanced.compression_type') == 'minified') {
       $page['#attached']['library'][] = 'colorbox/colorbox';
     }
     else {
