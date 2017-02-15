@@ -25,7 +25,7 @@ The Colorbox module:
 * Excellent integration with core image field and image styles and the Insert module
 * Choose between a default style and a number of other styles that are included.
 * Style the Colorbox with a custom Colorbox style in your theme.
-* Drush command, drush colorbox-plugin, to download and install the Colorbox plugin in sites/all/libraries.
+* Drush command, drush colorbox-plugin, to download and install the Colorbox plugin in "libraries/".
 
 The Colorbox plugin:
 
