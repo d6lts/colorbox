@@ -69,7 +69,9 @@ class ColorboxJavascriptTest extends JavascriptTestBase {
     $this->assertSession()->elementContains('css', '#colorbox', 'test.png');
 
     // Use alt captions.
-    entity_get_display('node', 'page', 'default')
+    \Drupal::entityTypeManager()
+      ->getStorage('entity_view_display')
+      ->load('node.page.default')
       ->setComponent('field_test_image', [
         'type' => 'colorbox',
         'settings' => ['colorbox_caption' => 'alt'],
@@ -149,7 +151,9 @@ class ColorboxJavascriptTest extends JavascriptTestBase {
       'settings' => [],
     ]);
     $field_config->save();
-    entity_get_display('node', 'page', 'default')
+    \Drupal::entityTypeManager()
+      ->getStorage('entity_view_display')
+      ->load('node.page.default')
       ->setComponent('field_test_image', [
         'type' => 'colorbox',
         'settings' => [],

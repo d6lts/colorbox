@@ -7,6 +7,7 @@
 
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Unicode;
+use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 
 /**
@@ -172,7 +173,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
     // File id of the save file.
     $fid = $item->target_id;
     // Load file object.
-    $file_obj = file_load($fid);
+    $file_obj = File::load($fid);
     $file_array = $file_obj->toArray();
     // Populate the image title.
     if (!empty($file_array['field_image_title_text'][0]['value']) && empty($item->title) && $settings['colorbox_caption'] == 'title') {
