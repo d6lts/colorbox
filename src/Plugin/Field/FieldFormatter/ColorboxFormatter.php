@@ -95,7 +95,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return array(
+    return [
       'colorbox_node_style' => '',
       'colorbox_node_style_first' => '',
       'colorbox_image_style' => '',
@@ -103,7 +103,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       'colorbox_gallery_custom' => '',
       'colorbox_caption' => 'auto',
       'colorbox_caption_custom' => '',
-    ) + parent::defaultSettings();
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -118,7 +118,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       Url::fromRoute('entity.image_style.collection')
     );
 
-    $element['colorbox_node_style'] = array(
+    $element['colorbox_node_style'] = [
       '#title' => $this->t('Image style for content'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('colorbox_node_style'),
@@ -127,8 +127,8 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       '#description' => $description_link->toRenderable() + [
         '#access' => $this->currentUser->hasPermission('administer image styles'),
       ],
-    );
-    $element['colorbox_node_style_first'] = array(
+    ];
+    $element['colorbox_node_style_first'] = [
       '#title' => $this->t('Image style for first image in content'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('colorbox_node_style_first'),
@@ -137,8 +137,8 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       '#description' => $description_link->toRenderable() + [
         '#access' => $this->currentUser->hasPermission('administer image styles'),
       ],
-    );
-    $element['colorbox_image_style'] = array(
+    ];
+    $element['colorbox_image_style'] = [
       '#title' => $this->t('Image style for Colorbox'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('colorbox_image_style'),
@@ -147,110 +147,110 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       '#description' => $description_link->toRenderable() + [
         '#access' => $this->currentUser->hasPermission('administer image styles'),
       ],
-    );
+    ];
 
-    $gallery = array(
+    $gallery = [
       'post' => $this->t('Per post gallery'),
       'page' => $this->t('Per page gallery'),
       'field_post' => $this->t('Per field in post gallery'),
       'field_page' => $this->t('Per field in page gallery'),
       'custom' => $this->t('Custom (with tokens)'),
       'none' => $this->t('No gallery'),
-    );
-    $element['colorbox_gallery'] = array(
+    ];
+    $element['colorbox_gallery'] = [
       '#title' => $this->t('Gallery (image grouping)'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('colorbox_gallery'),
       '#options' => $gallery,
       '#description' => $this->t('How Colorbox should group the image galleries.'),
-    );
-    $element['colorbox_gallery_custom'] = array(
+    ];
+    $element['colorbox_gallery_custom'] = [
       '#title' => $this->t('Custom gallery'),
       '#type' => 'textfield',
       '#default_value' => $this->getSetting('colorbox_gallery_custom'),
       '#description' => $this->t('All images on a page with the same gallery value (rel attribute) will be grouped together. It must only contain lowercase letters, numbers, and underscores.'),
       '#required' => FALSE,
-      '#states' => array(
-        'visible' => array(
-          ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => array('value' => 'custom'),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => ['value' => 'custom'],
+        ],
+      ],
+    ];
     if (\Drupal::moduleHandler()->moduleExists('token')) {
-      $element['colorbox_token_gallery'] = array(
+      $element['colorbox_token_gallery'] = [
         '#type' => 'fieldset',
         '#title' => t('Replacement patterns'),
         '#theme' => 'token_tree_link',
-        '#token_types' => array($form['#entity_type'], 'file'),
-        '#states' => array(
-          'visible' => array(
-            ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => array('value' => 'custom'),
-          ),
-        ),
-      );
+        '#token_types' => [$form['#entity_type'], 'file'],
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => ['value' => 'custom'],
+          ],
+        ],
+      ];
     }
     else {
-      $element['colorbox_token_gallery'] = array(
+      $element['colorbox_token_gallery'] = [
         '#type' => 'fieldset',
         '#title' => $this->t('Replacement patterns'),
-        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', array('@token_url' => 'http://drupal.org/project/token')) . '</strong>',
-        '#states' => array(
-          'visible' => array(
-            ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => array('value' => 'custom'),
-          ),
-        ),
-      );
+        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => ['value' => 'custom'],
+          ],
+        ],
+      ];
     }
 
-    $caption = array(
+    $caption = [
       'auto' => $this->t('Automatic'),
       'title' => $this->t('Title text'),
       'alt' => $this->t('Alt text'),
       'entity_title' => $this->t('Content title'),
       'custom' => $this->t('Custom (with tokens)'),
       'none' => $this->t('None'),
-    );
-    $element['colorbox_caption'] = array(
+    ];
+    $element['colorbox_caption'] = [
       '#title' => $this->t('Caption'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('colorbox_caption'),
       '#options' => $caption,
       '#description' => $this->t('Automatic will use the first non-empty value out of the title, the alt text and the content title.'),
-    );
-    $element['colorbox_caption_custom'] = array(
+    ];
+    $element['colorbox_caption_custom'] = [
       '#title' => $this->t('Custom caption'),
       '#type' => 'textfield',
       '#default_value' => $this->getSetting('colorbox_caption_custom'),
-      '#states' => array(
-        'visible' => array(
-          ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => array('value' => 'custom'),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => ['value' => 'custom'],
+        ],
+      ],
+    ];
     if (\Drupal::moduleHandler()->moduleExists('token')) {
-      $element['colorbox_token_caption'] = array(
+      $element['colorbox_token_caption'] = [
         '#type' => 'fieldset',
         '#title' => t('Replacement patterns'),
         '#theme' => 'token_tree_link',
-        '#token_types' => array($form['#entity_type'], 'file'),
-        '#states' => array(
-          'visible' => array(
-            ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => array('value' => 'custom'),
-          ),
-        ),
-      );
+        '#token_types' => [$form['#entity_type'], 'file'],
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => ['value' => 'custom'],
+          ],
+        ],
+      ];
     }
     else {
-      $element['colorbox_token_caption'] = array(
+      $element['colorbox_token_caption'] = [
         '#type' => 'fieldset',
         '#title' => $this->t('Replacement patterns'),
-        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', array('@token_url' => 'http://drupal.org/project/token')) . '</strong>',
-        '#states' => array(
-          'visible' => array(
-            ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => array('value' => 'custom'),
-          ),
-        ),
-      );
+        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => ['value' => 'custom'],
+          ],
+        ],
+      ];
     }
 
     return $element;
@@ -260,7 +260,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary = array();
+    $summary = [];
 
     $image_styles = image_style_options(FALSE);
     // Unset possible 'No defined styles' option.
@@ -268,7 +268,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     // Styles could be lost because of enabled/disabled modules that defines
     // their styles in code.
     if (isset($image_styles[$this->getSetting('colorbox_node_style')])) {
-      $summary[] = $this->t('Content image style: @style', array('@style' => $image_styles[$this->getSetting('colorbox_node_style')]));
+      $summary[] = $this->t('Content image style: @style', ['@style' => $image_styles[$this->getSetting('colorbox_node_style')]]);
     }
     elseif ($this->getSetting('colorbox_node_style') == 'hide') {
       $summary[] = $this->t('Content image style: Hide');
@@ -278,39 +278,39 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     }
 
     if (isset($image_styles[$this->getSetting('colorbox_node_style_first')])) {
-      $summary[] = $this->t('Content image style of first image: @style', array('@style' => $image_styles[$this->getSetting('colorbox_node_style_first')]));
+      $summary[] = $this->t('Content image style of first image: @style', ['@style' => $image_styles[$this->getSetting('colorbox_node_style_first')]]);
     }
 
     if (isset($image_styles[$this->getSetting('colorbox_image_style')])) {
-      $summary[] = $this->t('Colorbox image style: @style', array('@style' => $image_styles[$this->getSetting('colorbox_image_style')]));
+      $summary[] = $this->t('Colorbox image style: @style', ['@style' => $image_styles[$this->getSetting('colorbox_image_style')]]);
     }
     else {
       $summary[] = $this->t('Colorbox image style: Original image');
     }
 
-    $gallery = array(
+    $gallery = [
       'post' => $this->t('Per post gallery'),
       'page' => $this->t('Per page gallery'),
       'field_post' => $this->t('Per field in post gallery'),
       'field_page' => $this->t('Per field in page gallery'),
       'custom' => $this->t('Custom (with tokens)'),
       'none' => $this->t('No gallery'),
-    );
+    ];
     if ($this->getSetting('colorbox_gallery')) {
-      $summary[] = $this->t('Colorbox gallery type: @type', array('@type' => $gallery[$this->getSetting('colorbox_gallery')])) . ($this->getSetting('colorbox_gallery') == 'custom' ? ' (' . $this->getSetting('colorbox_gallery_custom') . ')' : '');
+      $summary[] = $this->t('Colorbox gallery type: @type', ['@type' => $gallery[$this->getSetting('colorbox_gallery')]]) . ($this->getSetting('colorbox_gallery') == 'custom' ? ' (' . $this->getSetting('colorbox_gallery_custom') . ')' : '');
     }
 
-    $caption = array(
+    $caption = [
       'auto' => $this->t('Automatic'),
       'title' => $this->t('Title text'),
       'alt' => $this->t('Alt text'),
       'entity_title' => $this->t('Content title'),
       'custom' => $this->t('Custom (with tokens)'),
       'none' => $this->t('None'),
-    );
+    ];
 
     if ($this->getSetting('colorbox_caption')) {
-      $summary[] = $this->t('Colorbox caption: @type', array('@type' => $caption[$this->getSetting('colorbox_caption')]));
+      $summary[] = $this->t('Colorbox caption: @type', ['@type' => $caption[$this->getSetting('colorbox_caption')]]);
     }
 
     return $summary;
@@ -320,7 +320,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = array();
+    $elements = [];
     $settings = $this->getSettings();
     $files = $this->getEntitiesToView($items, $langcode);
 
@@ -330,12 +330,12 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     }
 
     // Collect cache tags to be added for each item in the field.
-    $cache_tags = array();
+    $cache_tags = [];
     if (!empty($settings['colorbox_node_style']) && $settings['colorbox_node_style'] != 'hide') {
       $image_style = $this->imageStyleStorage->load($settings['colorbox_node_style']);
       $cache_tags = $image_style->getCacheTags();
     }
-    $cache_tags_first = array();
+    $cache_tags_first = [];
     if (!empty($settings['colorbox_node_style_first'])) {
       $image_style_first = $this->imageStyleStorage->load($settings['colorbox_node_style_first']);
       $cache_tags_first = $image_style_first->getCacheTags();
@@ -360,16 +360,16 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       $item_attributes = $item->_attributes;
       unset($item->_attributes);
 
-      $elements[$delta] = array(
+      $elements[$delta] = [
         '#theme' => 'colorbox_formatter',
         '#item' => $item,
         '#item_attributes' => $item_attributes,
         '#entity' => $items->getEntity(),
         '#settings' => $settings,
-        '#cache' => array(
+        '#cache' => [
           'tags' => $cache_tags,
-        ),
-      );
+        ],
+      ];
     }
 
     // Attach the Colorbox JS and CSS.
@@ -385,7 +385,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    */
   public function calculateDependencies() {
     $dependencies = parent::calculateDependencies();
-    $style_ids = array();
+    $style_ids = [];
     $style_ids[] = $this->getSetting('colorbox_node_style');
     if (!empty($settings['colorbox_node_style_first'])) {
       $style_ids[] = $this->getSetting('colorbox_node_style_first');
@@ -407,7 +407,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    */
   public function onDependencyRemoval(array $dependencies) {
     $changed = parent::onDependencyRemoval($dependencies);
-    $style_ids = array();
+    $style_ids = [];
     $style_ids['colorbox_node_style'] = $this->getSetting('colorbox_node_style');
     if (!empty($settings['colorbox_node_style_first'])) {
       $style_ids['colorbox_node_style_first'] = $this->getSetting('colorbox_node_style_first');
