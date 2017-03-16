@@ -27,11 +27,11 @@ function template_preprocess_colorbox_formatter(&$variables) {
   static $gallery_token = NULL;
 
   $item = $variables['item'];
-  $item_attributes = isset($variables['item_attributes']) ? $variables['item_attributes'] : array();
+  $item_attributes = isset($variables['item_attributes']) ? $variables['item_attributes'] : [];
   $entity = $variables['entity'];
   $settings = $variables['settings'];
   $image_uri = $item->entity->getFileUri();
-  $classes_array = array('colorbox');
+  $classes_array = ['colorbox'];
 
   // Build the caption.
   $entity_title = $entity->label();
@@ -69,7 +69,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
 
     case 'custom':
       $token_service = \Drupal::token();
-      $caption = $token_service->replace($settings['colorbox_caption_custom'], array($entity_type => $entity, 'file' => $item), array('clear' => TRUE));
+      $caption = $token_service->replace($settings['colorbox_caption_custom'], [$entity_type => $entity, 'file' => $item], ['clear' => TRUE]);
       break;
 
     default:
@@ -109,7 +109,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
 
     case 'custom':
       $token_service = \Drupal::token();
-      $gallery_id = $token_service->replace($settings['colorbox_gallery_custom'], array($entity_type => $entity, 'file' => $item), array('clear' => TRUE));
+      $gallery_id = $token_service->replace($settings['colorbox_gallery_custom'], [$entity_type => $entity, 'file' => $item], ['clear' => TRUE]);
       break;
 
     default:
@@ -130,19 +130,19 @@ function template_preprocess_colorbox_formatter(&$variables) {
 
   // Set up the $variables['image'] parameter.
   if ($settings['style_name'] == 'hide') {
-    $variables['image'] = array();
+    $variables['image'] = [];
     $classes_array[] = 'js-hide';
   }
   elseif (!empty($settings['style_name'])) {
-    $variables['image'] = array(
+    $variables['image'] = [
       '#theme' => 'image_style',
       '#style_name' => $settings['style_name'],
-    );
+    ];
   }
   else {
-    $variables['image'] = array(
+    $variables['image'] = [
       '#theme' => 'image',
-    );
+    ];
   }
 
   if (!empty($variables['image'])) {
@@ -153,7 +153,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
       $variables['image']['#title'] = $item->title;
     }
 
-    foreach (array('width', 'height', 'alt') as $key) {
+    foreach (['width', 'height', 'alt'] as $key) {
       $variables['image']["#$key"] = $item->$key;
     }
 
