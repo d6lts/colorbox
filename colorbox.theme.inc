@@ -32,6 +32,7 @@ function template_preprocess_colorbox_formatter(&$variables) {
   $settings = $variables['settings'];
   $image_uri = $item->entity->getFileUri();
   $classes_array = ['colorbox'];
+  $data_cbox_img_attrs = [];
 
   // Build the caption.
   $entity_title = $entity->label();
@@ -151,10 +152,14 @@ function template_preprocess_colorbox_formatter(&$variables) {
     // Do not output an empty 'title' attribute.
     if (Unicode::strlen($item->title) != 0) {
       $variables['image']['#title'] = $item->title;
+      $data_cbox_img_attrs['title'] = '"title":"' . $item->title . '"';
     }
 
     foreach (['width', 'height', 'alt'] as $key) {
       $variables['image']["#$key"] = $item->$key;
+      if ($key == 'alt') {
+        $data_cbox_img_attrs['alt'] = '"alt":"' . $item->alt . '"';
+      }
     }
 
     $variables['image']['#uri'] = empty($item->uri) ? $image_uri : $item->uri;
@@ -187,6 +192,8 @@ function template_preprocess_colorbox_formatter(&$variables) {
 
   $variables['attributes']['title'] = $caption;
   $variables['attributes']['data-colorbox-gallery'] = $gallery_id;
-  $variables['attributes']['data-cbox-img-attrs'] = '{"title": "' . $variables['image']['title'] . '", "alt": "' . $variables['image']['alt'] . '"}';
   $variables['attributes']['class'] = $classes_array;
+  if (!empty($data_cbox_img_attrs)) {
+    $variables['attributes']['data-cbox-img-attrs'] = '{' . implode(',', $data_cbox_img_attrs) . '}';
+  }
 }
