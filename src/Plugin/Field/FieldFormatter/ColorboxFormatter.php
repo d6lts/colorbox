@@ -387,7 +387,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     $dependencies = parent::calculateDependencies();
     $style_ids = [];
     $style_ids[] = $this->getSetting('colorbox_node_style');
-    if (!empty($settings['colorbox_node_style_first'])) {
+    if (!empty($this->getSetting('colorbox_node_style_first'))) {
       $style_ids[] = $this->getSetting('colorbox_node_style_first');
     }
     $style_ids[] = $this->getSetting('colorbox_image_style');
@@ -409,7 +409,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
     $changed = parent::onDependencyRemoval($dependencies);
     $style_ids = [];
     $style_ids['colorbox_node_style'] = $this->getSetting('colorbox_node_style');
-    if (!empty($settings['colorbox_node_style_first'])) {
+    if (!empty($this->getSetting('colorbox_node_style_first'))) {
       $style_ids['colorbox_node_style_first'] = $this->getSetting('colorbox_node_style_first');
     }
     $style_ids['colorbox_image_style'] = $this->getSetting('colorbox_image_style');
