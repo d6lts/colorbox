@@ -37,6 +37,7 @@ function colorbox_theme() {
     'colorbox_formatter' => array(
       'variables' => array(
         'item' => NULL,
+        'item_attributes' => NULL,
         'entity' => NULL,
         'settings' => NULL,
       ),
