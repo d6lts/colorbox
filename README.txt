@@ -46,7 +46,7 @@ The Colorbox plugin:
   existing HTML.
 * Preloads upcoming images in a photo group.
 * Currently used on more than 2 million websites.
-* Released under the MIT License
+* Released under the MIT License.
 
 
 REQUIREMENTS
@@ -105,8 +105,8 @@ The command will download the plugin and unpack it in "libraries/".
 It is possible to add another path as an option to the command, but not
 recommended unless you know what you are doing.
 
-M
-AINTAINERS
+
+MAINTAINERS
 -----------
 
 Current maintainers:
