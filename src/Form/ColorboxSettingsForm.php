@@ -171,7 +171,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#states' => $this->getState(static::STATE_CUSTOM_SETTINGS),
     ];
     $form['colorbox_custom_settings']['colorbox_returnfocus'] = [
-      'type' => 'checkbox',
+      '#type' => 'checkbox',
       '#title' => $this->t('Return focus'),
       '#default_value' => $config->get('custom.returnfocus'),
       '#description' => $this->t('Return focus when Colorbox exits to the element it was launched from.'),
