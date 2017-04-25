@@ -18,8 +18,11 @@
  *   An HTML string representing the themed output.
  *
  * @ingroup themeable
+ *
+ * @codingStandardsIgnoreStart
  */
 function theme_colorbox_image_formatter($variables) {
+  // @codingStandardsIgnoreEnd
   static $gallery_token = NULL;
   $item = $variables['item'];
   $entity_type = $variables['entity_type'];
@@ -102,7 +105,8 @@ function theme_colorbox_image_formatter($variables) {
       $caption = '';
   }
 
-  // Shorten the caption for the example styles or when caption shortening is active.
+  // Shorten the caption for the example styles or when caption shortening is
+  // active.
   $colorbox_style = variable_get('colorbox_style', 'default');
   $trim_length = variable_get('colorbox_caption_trim_length', 75);
   if (((strpos($colorbox_style, 'colorbox/example') !== FALSE) || variable_get('colorbox_caption_trim', 0)) && (drupal_strlen($caption) > $trim_length)) {
@@ -137,9 +141,11 @@ function theme_colorbox_image_formatter($variables) {
       $gallery_id = '';
   }
 
-  // If gallery id is not empty add unique per-request token to avoid images being added manually to galleries.
+  // If gallery id is not empty add unique per-request token to avoid images
+  // being added manually to galleries.
   if (!empty($gallery_id) && variable_get('colorbox_unique_token', 1)) {
-    // Check if gallery token has already been set, we need to reuse the token for the whole request.
+    // Check if gallery token has already been set, we need to reuse the token
+    // for the whole request.
     if (is_null($gallery_token)) {
       // We use a short token since randomness is not critical.
       $gallery_token = drupal_random_key(8);
@@ -154,7 +160,12 @@ function theme_colorbox_image_formatter($variables) {
     $path = file_create_url($image['path']);
   }
 
-  return theme('colorbox_imagefield', array('image' => $image, 'path' => $path, 'title' => $caption, 'gid' => $gallery_id));
+  return theme('colorbox_imagefield', array(
+    'image' => $image,
+    'path' => $path,
+    'title' => $caption,
+    'gid' => $gallery_id,
+  ));
 }
 
 /**
@@ -171,8 +182,11 @@ function theme_colorbox_image_formatter($variables) {
  *   An HTML string containing a link to the given path.
  *
  * @ingroup themeable
+ *
+ * @codingStandardsIgnoreStart
  */
 function theme_colorbox_imagefield($variables) {
+  // @codingStandardsIgnoreEnd
   $class = array('colorbox');
 
   if ($variables['image']['style_name'] == 'hide') {
@@ -204,8 +218,12 @@ function theme_colorbox_imagefield($variables) {
  * Preprocess variables for the colorbox-insert-image.tpl.php file.
  *
  * @param array $variables
+ *   Array with variables values.
+ *
+ * @codingStandardsIgnoreStart
  */
 function template_preprocess_colorbox_insert_image(&$variables) {
+  // @codingStandardsIgnoreEnd
   $item = $variables['item'];
   $variables['file'] = file_load($item['fid']);
   $variables['style_name'] = $item['style_name'];
