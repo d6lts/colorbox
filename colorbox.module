@@ -522,6 +522,45 @@ function colorbox_insert_styles() {
 }
 
 /**
+ * Implements hook_help().
+ */
+function colorbox_help($path, $arg) {
+
+  switch ($path) {
+    case 'admin/help#colorbox':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('<a target="_blank" href="@colorbox_project_link">Colorbox</a> is a light-weight customizable lightbox plugin for jQuery. This module allows for integration of Colorbox into Drupal.', array('@colorbox_project_link' => 'https://www.drupal.org/project/colorbox')) . '</p>';
+      $output .= '<p>' . t('Images, iframed or inline content etc. can be displayed in a overlay above the current page.') . '</p>';
+
+      $output .= '<h3>' . t('Usage') . '</h3>';
+      $output .= '<p>' . t('Go to "Configuration" » "Media" » "Colorbox" to find all the configuration options.') . '</p>';
+
+      $output .= '<h3>' . t('Features') . '</h3>';
+      $output .= '<b>' . t('The Colorbox:') . '</b>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Excellent integration with Image field and Image styles') . '</li>';
+      $output .= '<li>' . t('Choose between a default style and 5 example styles that are included.') . '</li>';
+      $output .= '<li>' . t('Style the Colorbox with a custom colorbox.css file in your theme.') . '</li>';
+      $output .= '<li>' . t('Drush command to download and install the Colorbox plugin in sites/all/libraries') . '</li>';
+      $output .= '</ul>';
+
+      $output .= '<b>' . t('The Colorbox plugin:') . '</b>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Supports photos, grouping, slideshow, ajax, inline, and iframed content.') . '</li>';
+      $output .= '<li>' . t('Appearance is controlled through CSS so it can be restyled.') . '</li>';
+      $output .= '<li>' . t('Preloads upcoming images in a photo group.') . '</li>';
+      $output .= '<li>' . t('Completely unobtrusive, options are set in the JS and require no') . '</li>';
+      $output .= '<li>' . t('changes to existing HTML.') . '</li>';
+      $output .= '<li>' . t('Compatible with: jQuery 1.3.2+ in Firefox, Safari, Chrome, Opera,') . '</li>';
+      $output .= '<li>' . t('Internet Explorer 7+.') . '</li>';
+      $output .= '<li>' . t('Released under the MIT License.') . '</p>';
+      $output .= '</ul>';
+
+      return $output;
+  }
+}
+
+/**
  * Implements hook_insert_content().
  */
 function colorbox_insert_content($item, $style, $widget) {
