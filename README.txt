@@ -33,7 +33,7 @@ overlay above the current page.
 FEATURES:
 ---------
 
-The Colorbox module:
+The Colorbox:
 
 * Excellent integration with Image field and Image styles
 * Choose between a default style and 5 example styles that are included.
