@@ -4,7 +4,6 @@
  * @file
  * A light-weight, customizable lightbox plugin for jQuery 1.3.
  */
-
 /**
  * The minimum required version of the Colorbox plugin.
  */
@@ -24,7 +23,6 @@ function colorbox_theme() {
       ),
       'file' => 'colorbox.theme.inc',
     ),
-
     'colorbox_insert_image' => array(
       'variables' => array(
         'item' => NULL,
@@ -34,13 +32,12 @@ function colorbox_theme() {
       'pattern' => 'colorbox_insert_image__[a-z0-9_]+',
       'file' => 'colorbox.theme.inc',
     ),
-
     'colorbox_image_formatter' => array(
       'variables' => array(
         'item' => NULL,
         'entity_type' => NULL,
         'entity' => NULL,
-  // Left for legacy support.
+        // Left for legacy support.
         'node' => NULL,
         'field' => array(),
         'display_settings' => array(),
@@ -492,7 +489,7 @@ function colorbox_field_formatter_view($entity_type, $entity, $field, $instance,
         '#item' => $item,
         '#entity_type' => $entity_type,
         '#entity' => $entity,
-      // Left for legacy support.
+        // Left for legacy support.
         '#node' => $entity,
         '#field' => $field,
         '#display_settings' => $display['settings'],
@@ -556,6 +553,21 @@ function colorbox_help($path, $arg) {
       $output .= '<li>' . t('Released under the MIT License.') . '</p>';
       $output .= '</ul>';
 
+      $output .= '<h3>' . t('Colorbox screencasts') . '</h3>';
+      $output .= '<b>' . t('Part 1 to 3 is for an older 7.x-1.x version of the Colorbox:') . '</b>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Part 1: <a href="@colorbox_screencasts_part1" target="blank">Installation and image field integration on Vimeo</a>', array('@colorbox_screencasts_part1' => 'https://vimeo.com/19122850')) . '</li>';
+      $output .= '<li>' . t('Part 2: <a href="@colorbox_screencasts_part2" target="blank">Inline images with the Insert module on Vimeo</a>', array('@colorbox_screencasts_part2' => 'https://vimeo.com/19386122')) . '</li>';
+      $output .= '<li>' . t('Part 3: <a href="@colorbox_screencasts_part3" target="blank">Building a image gallery and a image slideshow.</a>', array('@colorbox_screencasts_part3' => 'https://vimeo.com/26411524')) . '</li>';
+      $output .= '</ul>';
+
+      $output .= '<b>' . t('Contributed screencasts:') . '</b>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('<a href="@colorbox_contributed_screencasts_part1" target="blank">Drupal 7 Colorbox project</a> by Code Karate', array('@colorbox_contributed_screencasts_part1' => 'http://codekarate.com/daily-dose-of-drupal/drupal-7-colorbox-module')) . '</li>';
+      $output .= '<li>' . t('<a href="@colorbox_contributed_screencasts_part2" target="blank">Creating and Theming a Node Photo Gallery with Drupal 7 and Colorbox</a> by High Rock Media.', array('@colorbox_contributed_screencasts_part2' => 'http://dannyenglander.com/blog/screencast-creating-and-theming-node-photo-gallery-drupal-7-and-colorbox')) . '</li>';
+      $output .= '<li>' . t('<a href="@colorbox_contributed_screencasts_part3" target="blank">How to Build a Lightbox Portfolio in Drupal 7</a> by CMS Quickstart', array('@colorbox_contributed_screencasts_part3' => 'http://www.cmsquickstart.com/blog/tutorial-how-build-lightbox-portfolio-drupal-7')) . '</li>';
+      $output .= '</ul>';
+
       return $output;
   }
 }
@@ -568,7 +580,7 @@ function colorbox_insert_content($item, $style, $widget) {
   return theme(array(
     'colorbox_insert_image__' . str_replace('-', '_', $item['style_name']),
     'colorbox_insert_image',
-  ), array(
+      ), array(
     'item' => $item,
     'widget' => $widget,
   ));
