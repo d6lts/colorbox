@@ -376,7 +376,7 @@ function colorbox_admin_settings() {
     '#type' => 'textarea',
     '#title' => '<span class="element-invisible">' . t('Pages') . '</span>',
     '#default_value' => variable_get('colorbox_pages', "admin*\nimagebrowser*\nimg_assist*\nimce*\nnode/add/*\nnode/*/edit\nprint/*\nprintpdf/*\nsystem/ajax\nsystem/ajax/*"),
-    '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array(
+    '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page. <p><a href=\"#\" class=\"colorbox-reset-specific-pages-default\">Reset to default</a></p>", array(
       '%blog' => 'blog',
       '%blog-wildcard' => 'blog/*',
       '%front' => '<front>',

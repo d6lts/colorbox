@@ -4,6 +4,7 @@
  * @file
  * A light-weight, customizable lightbox plugin for jQuery 1.3.
  */
+
 /**
  * The minimum required version of the Colorbox plugin.
  */
@@ -207,6 +208,8 @@ function _colorbox_doheader() {
       'mobiledevicewidth' => variable_get('colorbox_mobile_device_width', '480px'),
     );
   }
+
+  $js_settings['specificPagesDefaultValue'] = "admin*\nimagebrowser*\nimg_assist*\nimce*\nnode/add/*\nnode/*/edit\nprint/*\nprintpdf/*\nsystem/ajax\nsystem/ajax/*";
 
   $path = drupal_get_path('module', 'colorbox');
   $style = variable_get('colorbox_style', 'default');
