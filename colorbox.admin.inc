@@ -50,7 +50,7 @@ function colorbox_admin_settings() {
     '#type' => 'checkbox',
     '#title' => t('Enable Colorbox inline'),
     '#default_value' => variable_get('colorbox_inline', 0),
-    '#description' => t('This enables custom links that can open inline content in a Colorbox. Add the class "colorbox-inline" to the link and build the url like this "?width=500&height=500&inline=true#id-of-content". Other modules may activate this for easy Colorbox integration.'),
+    '#description' => t('<a href="https://www.drupal.org/files/druplicon-small.png" class="colorbox">This</a> enables custom links that can open inline content in a Colorbox. Add the class "colorbox-inline" to the link and build the url like this "?width=500&height=500&inline=true#id-of-content". Other modules may activate this for easy Colorbox integration.'),
   );
 
   $form['colorbox_custom_settings'] = array(
@@ -73,7 +73,7 @@ function colorbox_admin_settings() {
     '#title' => t('Style'),
     '#options' => $colorbox_styles,
     '#default_value' => variable_get('colorbox_style', 'default'),
-    '#description' => t('Select the style to use for the Colorbox. The example styles are the ones that come with the Colorbox plugin. Select "None" if you have added Colorbox styles to your theme.'),
+    '#description' => t('Select the style to use for the Colorbox. The example styles are the ones that come with the Colorbox plugin. Select "None" if you have added Colorbox styles to your theme. <br> <strong>Examples</strong>: <ul><li><a href="/sites/all/modules/colorbox/images/admin/example_default.png" target="blank">Default</a></li><li><a href="/sites/all/modules/colorbox/images/admin/example_plain.png" target="blank">Plain</a></li><li><a href="/sites/all/modules/colorbox/images/admin/example_stockholm_syndrome.png" target="blank">Stockholm Syndrome</a></li><li><a href="/sites/all/modules/colorbox/images/admin/colorbox_example_1.png" target="blank">Example 1</a></li><li><a href="/sites/all/modules/colorbox/images/admin/colorbox_example_2.png" target="blank">Example 2</a></li><li><a href="/sites/all/modules/colorbox/images/admin/colorbox_example_3.png" target="blank">Example 3</a></li><li><a href="/sites/all/modules/colorbox/images/admin/colorbox_example_4.png" target="blank">Example 4</a></li><li><a href="/sites/all/modules/colorbox/images/admin/colorbox_example_5.png" target="blank">Example 5</a></li><li><a href="/sites/all/modules/colorbox/images/admin/example_none.png" target="blank">None</a></li></ul>'),
   );
   $form['colorbox_custom_settings']['colorbox_custom_settings_activate'] = array(
     '#type' => 'radios',
