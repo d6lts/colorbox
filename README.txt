@@ -80,8 +80,8 @@ INSTALLATION
  4. Go to "Administer" -> "Modules" and enable the Colorbox.
 
     Install as you would normally install a contributed Drupal module. See:
-    https://drupal.org/documentation/install/modules-themes/modules-7 for further
-    information.
+    https://drupal.org/documentation/install/modules-themes/modules-7 for
+    further information.
 
     Note:
     If you download the Colorbox plugin using the makefile included you should 
@@ -103,10 +103,11 @@ TODO
 ADD A CUSTOM COLORBOX STYLE TO YOUR THEME
 ----------------------------------------
 The easiest way is to start with either the default style or one of the
-example styles included in the Colorbox JS library download. Simply copy the entire
-style folder to your theme and rename it to something logical like "mycolorbox".
-Inside that folder are both a .css and .js file, rename both of those as well to match
-your folder name: i.e. "colorbox_mycolorbox.css" and "colorbox_mycolorbox.js"
+example styles included in the Colorbox JS library download. Simply copy the
+entire style folder to your theme and rename it to something logical like
+"mycolorbox". Inside that folder are both a .css and .js file, rename both of
+those as well to  match your folder name: i.e. "colorbox_mycolorbox.css" and
+"colorbox_mycolorbox.js"
 
 Add entries in your theme's .info file for the Colorbox CSS/JS files:
 
@@ -153,7 +154,9 @@ It could e.g. look like this.
 <a class="colorbox-inline" href="?width=500&height=500&inline=true#id-of-content">Link to click</a>
 
 <div style="display: none;">
-<div id="id-of-content">What ever content you want to display in a Colorbox.</div>
+  <div id="id-of-content">
+    What ever content you want to display in a Colorbox.
+  </div>
 </div>
 
 Other modules may activate this for easy Colorbox integration.

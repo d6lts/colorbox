@@ -67,7 +67,7 @@ class colorbox_handler_field_colorbox extends views_handler_field {
     }
     // This lets us prepare the key as we want it printed.
     $count = 0;
-    foreach ($this->view->display_handler->get_handlers('argument') as $arg => $handler) {
+    foreach ($this->view->display_handler->get_handlers('argument') as $handler) {
       $options[t('Arguments')]['%' . ++$count] = t('@argument title', array('@argument' => $handler->ui_name()));
       $options[t('Arguments')]['!' . $count] = t('@argument input', array('@argument' => $handler->ui_name()));
     }
