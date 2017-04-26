@@ -77,11 +77,15 @@ INSTALLATION
     Link: https://github.com/jackmoore/colorbox/archive/1.x.zip
     Drush users can use the command "drush colorbox-plugin".
 
- 4. Go to "Administer" -> "Modules" and enable the Colorbox module.
+ 4. Go to "Administer" -> "Modules" and enable the Colorbox.
 
- Install as you would normally install a contributed Drupal module. See:
- https://drupal.org/documentation/install/modules-themes/modules-7 for further
- information.
+    Install as you would normally install a contributed Drupal module. See:
+    https://drupal.org/documentation/install/modules-themes/modules-7 for further
+    information.
+
+    Note:
+    If you download the Colorbox plugin using the makefile included you should 
+    assurance that unzip command is available on your host.
 
 
 CONFIGURATION
