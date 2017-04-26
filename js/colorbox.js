@@ -30,8 +30,9 @@ Drupal.behaviors.initColorbox = {
     };
 
     $('.colorbox', context)
-      .once('init-colorbox')
-      .colorbox(settings.colorbox);
+      .once('init-colorbox').each(function(){
+        $(this).colorbox(settings.colorbox);
+      });
 
     $(context).bind('cbox_complete', function () {
       Drupal.attachBehaviors('#cboxLoadedContent');
