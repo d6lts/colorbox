@@ -63,6 +63,8 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    *   Any third party settings settings.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   The current user.
+   * @param Drupal\Core\Entity\EntityStorageInterface $image_style_storage
+   *   The image style storage.
    * @param \Drupal\colorbox\ElementAttachmentInterface $attachment
    *   Allow the library to be attached to the page.
    */

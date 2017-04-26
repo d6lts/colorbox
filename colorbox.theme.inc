@@ -22,8 +22,11 @@ use Drupal\image\Entity\ImageStyle;
  *     placed in the img tag.
  *   - entity: An entity object.
  *   - settings: Formatter settings array.
+ *
+ * @codingStandardsIgnoreStart
  */
 function template_preprocess_colorbox_formatter(&$variables) {
+  // @codingStandardsIgnoreEnd
   static $gallery_token = NULL;
 
   $item = $variables['item'];
