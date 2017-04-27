@@ -6,6 +6,16 @@
  */
 
 /**
+ * Implements hook_enable().
+ */
+function colorbox_enable() {
+  drupal_set_message(t('Thanks for using colorbox'));
+  drupal_set_message(t('You may configurar o colorbox by visiting <a href="@url_settings">@url_settings</a>', array(
+    '@url_settings' => url('admin/config/media/colorbox'),
+  )));
+}
+
+/**
  * Implements hook_requirements().
  */
 function colorbox_requirements($phase) {
