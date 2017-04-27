@@ -571,6 +571,15 @@ function colorbox_help($path, $arg) {
       $output .= '<li>' . t('<a href="@colorbox_contributed_screencasts_part3" target="blank">How to Build a Lightbox Portfolio in Drupal 7</a> by CMS Quickstart', array('@colorbox_contributed_screencasts_part3' => 'http://www.cmsquickstart.com/blog/tutorial-how-build-lightbox-portfolio-drupal-7')) . '</li>';
       $output .= '</ul>';
 
+      $output .= '<h3>' . t('Load Content in a Colorbox') . '</h3>';
+      $output .= '<p>' . t('Check the "Enable Colorbox load" option in Colorbox settings.') . '</p>';
+      $output .= '<p>' . t('This enables custom links that can open content in a Colorbox.') . '</p>';
+      $output .= '<p>' . t('Add the class "colorbox-load" to the link and build the url like this "[path]?width=500&height=500&iframe=true" or "[path]?width=500&height=500" if you don\'t want an iframe.') . '</p>';
+      $output .= '<p>' . t('Other projects may activate this for easy Colorbox integration.') . '</p>';
+
+      $output .= '<h3>' . t('Load Images from custom links in a Colorbox') . '</h3>';
+      $output .= '<p>' . t('Add the class "colorbox" to the link and point its href attribute to the image you want to display in the Colorbox.') . '</p>';
+
       return $output;
   }
 }

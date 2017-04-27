@@ -151,7 +151,9 @@ this "?width=500&height=500&inline=true#id-of-content".
 
 It could e.g. look like this.
 
-<a class="colorbox-inline" href="?width=500&height=500&inline=true#id-of-content">Link to click</a>
+<a class="colorbox-inline" href="?width=500&height=500&inline=true#id-of-content">
+  Link to click
+</a>
 
 <div style="display: none;">
   <div id="id-of-content">
