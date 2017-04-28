@@ -116,6 +116,9 @@ class ColorboxAttachment implements ElementAttachmentInterface {
     if ($style != 'none') {
       $page['#attached']['library'][] = "colorbox/$style";
     }
+    else {
+      $page['#attached']['library'][] = "colorbox/init";
+    }
   }
 
 }
