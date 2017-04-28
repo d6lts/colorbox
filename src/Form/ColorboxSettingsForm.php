@@ -296,6 +296,18 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('advanced.compression_type'),
     ];
 
+    $form['colorbox_extras'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Extras'),
+    ];
+
+    $form['colorbox_extras']['colorbox_additional_tips'] = [
+      '#markup' => $this->t('You can find new features in the <a href="@url_colorbox_load" target="blank">Colorbox Load</a> and <a href="@url_colorbox_inline" target="blank">Colorbox Inline</a>', [
+        '@url_colorbox_load' => 'https://www.drupal.org/project/colorbox_load',
+        '@url_colorbox_inline' => 'https://www.drupal.org/project/colorbox_inline',
+      ]),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
