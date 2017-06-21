@@ -2,8 +2,11 @@
 
 namespace Drupal\colorbox\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * General configuration form for controlling the colorbox behaviour..
@@ -19,6 +22,31 @@ class ColorboxSettingsForm extends ConfigFormBase {
    * A state that represents the slideshow being enabled.
    */
   const STATE_SLIDESHOW_ENABLED = 1;
+
+  /**
+   * Drupal\Core\Extension\ModuleHandlerInterface definition.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  private $moduleHandler;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $moduleHandler) {
+    parent::__construct($config_factory);
+    $this->moduleHandler = $moduleHandler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('module_handler')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -296,8 +324,7 @@ class ColorboxSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('advanced.compression_type'),
     ];
 
-    $moduleHandler = \Drupal::service('module_handler');
-    if (!$moduleHandler->moduleExists('colorbox_load') || !$moduleHandler->moduleExists('colorbox_inline')) {
+    if (!$this->moduleHandler->moduleExists('colorbox_load') || !$this->moduleHandler->moduleExists('colorbox_inline')) {
 
       $form['colorbox_extras'] = [
         '#type' => 'details',
@@ -323,34 +350,34 @@ class ColorboxSettingsForm extends ConfigFormBase {
     $config = $this->configFactory->getEditable('colorbox.settings');
 
     $config
-        ->set('custom.style', $form_state->getValue('colorbox_style'))
-        ->set('custom.activate', $form_state->getValue('colorbox_custom_settings_activate'))
-        ->set('custom.transition_type', $form_state->getValue('colorbox_transition_type'))
-        ->set('custom.transition_speed', $form_state->getValue('colorbox_transition_speed'))
-        ->set('custom.opacity', $form_state->getValue('colorbox_opacity'))
-        ->set('custom.text_current', $form_state->getValue('colorbox_text_current'))
-        ->set('custom.text_previous', $form_state->getValue('colorbox_text_previous'))
-        ->set('custom.text_next', $form_state->getValue('colorbox_text_next'))
-        ->set('custom.text_close', $form_state->getValue('colorbox_text_close'))
-        ->set('custom.overlayclose', $form_state->getValue('colorbox_overlayclose'))
-        ->set('custom.returnfocus', $form_state->getValue('colorbox_returnfocus'))
-        ->set('custom.maxwidth', $form_state->getValue('colorbox_maxwidth'))
-        ->set('custom.maxheight', $form_state->getValue('colorbox_maxheight'))
-        ->set('custom.initialwidth', $form_state->getValue('colorbox_initialwidth'))
-        ->set('custom.initialheight', $form_state->getValue('colorbox_initialheight'))
-        ->set('custom.fixed', $form_state->getValue('colorbox_fixed'))
-        ->set('custom.scrolling', $form_state->getValue('colorbox_scrolling'))
-        ->set('custom.slideshow.slideshow', $form_state->getValue('colorbox_slideshow'))
-        ->set('custom.slideshow.auto', $form_state->getValue('colorbox_slideshowauto'))
-        ->set('custom.slideshow.speed', $form_state->getValue('colorbox_slideshowspeed'))
-        ->set('custom.slideshow.text_start', $form_state->getValue('colorbox_text_start'))
-        ->set('custom.slideshow.text_stop', $form_state->getValue('colorbox_text_stop'))
-        ->set('advanced.unique_token', $form_state->getValue('colorbox_unique_token'))
-        ->set('advanced.mobile_detect', $form_state->getValue('colorbox_mobile_detect'))
-        ->set('advanced.mobile_device_width', $form_state->getValue('colorbox_mobile_device_width'))
-        ->set('advanced.caption_trim', $form_state->getValue('colorbox_caption_trim'))
-        ->set('advanced.caption_trim_length', $form_state->getValue('colorbox_caption_trim_length'))
-        ->set('advanced.compression_type', $form_state->getValue('colorbox_compression_type'));
+      ->set('custom.style', $form_state->getValue('colorbox_style'))
+      ->set('custom.activate', $form_state->getValue('colorbox_custom_settings_activate'))
+      ->set('custom.transition_type', $form_state->getValue('colorbox_transition_type'))
+      ->set('custom.transition_speed', $form_state->getValue('colorbox_transition_speed'))
+      ->set('custom.opacity', $form_state->getValue('colorbox_opacity'))
+      ->set('custom.text_current', $form_state->getValue('colorbox_text_current'))
+      ->set('custom.text_previous', $form_state->getValue('colorbox_text_previous'))
+      ->set('custom.text_next', $form_state->getValue('colorbox_text_next'))
+      ->set('custom.text_close', $form_state->getValue('colorbox_text_close'))
+      ->set('custom.overlayclose', $form_state->getValue('colorbox_overlayclose'))
+      ->set('custom.returnfocus', $form_state->getValue('colorbox_returnfocus'))
+      ->set('custom.maxwidth', $form_state->getValue('colorbox_maxwidth'))
+      ->set('custom.maxheight', $form_state->getValue('colorbox_maxheight'))
+      ->set('custom.initialwidth', $form_state->getValue('colorbox_initialwidth'))
+      ->set('custom.initialheight', $form_state->getValue('colorbox_initialheight'))
+      ->set('custom.fixed', $form_state->getValue('colorbox_fixed'))
+      ->set('custom.scrolling', $form_state->getValue('colorbox_scrolling'))
+      ->set('custom.slideshow.slideshow', $form_state->getValue('colorbox_slideshow'))
+      ->set('custom.slideshow.auto', $form_state->getValue('colorbox_slideshowauto'))
+      ->set('custom.slideshow.speed', $form_state->getValue('colorbox_slideshowspeed'))
+      ->set('custom.slideshow.text_start', $form_state->getValue('colorbox_text_start'))
+      ->set('custom.slideshow.text_stop', $form_state->getValue('colorbox_text_stop'))
+      ->set('advanced.unique_token', $form_state->getValue('colorbox_unique_token'))
+      ->set('advanced.mobile_detect', $form_state->getValue('colorbox_mobile_detect'))
+      ->set('advanced.mobile_device_width', $form_state->getValue('colorbox_mobile_device_width'))
+      ->set('advanced.caption_trim', $form_state->getValue('colorbox_caption_trim'))
+      ->set('advanced.caption_trim_length', $form_state->getValue('colorbox_caption_trim_length'))
+      ->set('advanced.compression_type', $form_state->getValue('colorbox_compression_type'));
 
     if ($form_state->getValue('colorbox_image_style')) {
       $config->set('insert.image_style', $form_state->getValue('colorbox_image_style'));

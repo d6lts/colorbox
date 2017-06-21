@@ -3,6 +3,7 @@
 namespace Drupal\colorbox\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Link;
@@ -45,6 +46,13 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
   protected $imageStyleStorage;
 
   /**
+   * Drupal\Core\Extension\ModuleHandlerInterface definition.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  private $moduleHandler;
+
+  /**
    * Constructs an ImageFormatter object.
    *
    * @param string $plugin_id
@@ -67,12 +75,15 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
    *   The image style storage.
    * @param \Drupal\colorbox\ElementAttachmentInterface $attachment
    *   Allow the library to be attached to the page.
+   * @param Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   Module handler services.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, AccountInterface $current_user, EntityStorageInterface $image_style_storage, ElementAttachmentInterface $attachment) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, AccountInterface $current_user, EntityStorageInterface $image_style_storage, ElementAttachmentInterface $attachment, ModuleHandlerInterface $moduleHandler) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->currentUser = $current_user;
     $this->imageStyleStorage = $image_style_storage;
     $this->attachment = $attachment;
+    $this->moduleHandler = $moduleHandler;
   }
 
   /**
@@ -178,10 +189,10 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
         ],
       ],
     ];
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
+    if ($this->moduleHandler->moduleExists('token')) {
       $element['colorbox_token_gallery'] = [
         '#type' => 'fieldset',
-        '#title' => t('Replacement patterns'),
+        '#title' => $this->t('Replacement patterns'),
         '#theme' => 'token_tree_link',
         '#token_types' => [$form['#entity_type'], 'file'],
         '#states' => [
@@ -229,10 +240,10 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
         ],
       ],
     ];
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
+    if ($this->moduleHandler->moduleExists('token')) {
       $element['colorbox_token_caption'] = [
         '#type' => 'fieldset',
-        '#title' => t('Replacement patterns'),
+        '#title' => $this->t('Replacement patterns'),
         '#theme' => 'token_tree_link',
         '#token_types' => [$form['#entity_type'], 'file'],
         '#states' => [
