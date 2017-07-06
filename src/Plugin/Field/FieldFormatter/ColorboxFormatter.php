@@ -190,11 +190,18 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       ],
     ];
     if ($this->moduleHandler->moduleExists('token')) {
+
+      $entity_type = '';
+
+      if (!empty($form['#entity_type'])) {
+        $entity_type = $form['#entity_type'];
+      }
+
       $element['colorbox_token_gallery'] = [
         '#type' => 'fieldset',
         '#title' => $this->t('Replacement patterns'),
         '#theme' => 'token_tree_link',
-        '#token_types' => [$form['#entity_type'], 'file'],
+        '#token_types' => [$entity_type, 'file'],
         '#states' => [
           'visible' => [
             ':input[name$="[settings_edit_form][settings][colorbox_gallery]"]' => ['value' => 'custom'],
@@ -241,11 +248,18 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       ],
     ];
     if ($this->moduleHandler->moduleExists('token')) {
+
+      $entity_type = '';
+
+      if (!empty($form['#entity_type'])) {
+        $entity_type = $form['#entity_type'];
+      }
+
       $element['colorbox_token_caption'] = [
         '#type' => 'fieldset',
         '#title' => $this->t('Replacement patterns'),
         '#theme' => 'token_tree_link',
-        '#token_types' => [$form['#entity_type'], 'file'],
+        '#token_types' => [$entity_type, 'file'],
         '#states' => [
           'visible' => [
             ':input[name$="[settings_edit_form][settings][colorbox_caption]"]' => ['value' => 'custom'],
