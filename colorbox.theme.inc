@@ -130,7 +130,7 @@ function theme_colorbox_image_formatter($variables) {
       break;
 
     case 'field_page':
-      $gallery_id = 'gallery-' . $field['field_name'];
+      $gallery_id = isset($field['field_name']) ? 'gallery-' . $field['field_name'] : 'gallery-page';
       break;
 
     case 'custom':
