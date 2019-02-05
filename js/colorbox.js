@@ -12,6 +12,7 @@
         // Disable Colorbox for small screens.
         var mq = window.matchMedia('(max-device-width: ' + settings.colorbox.mobiledevicewidth + ')');
         if (mq.matches) {
+          $.colorbox.remove();
           return;
         }
       }
