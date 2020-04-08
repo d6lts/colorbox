@@ -4,8 +4,8 @@
   "type": "drupal-module",
   "homepage": "https://www.drupal.org/project/colorbox",
   "support": {
-    "issues": "https://www.drupal.org/project/colorbox",
-    "source": "https://cgit.drupalcode.org/colorbox"
+    "issues": "https://www.drupal.org/project/issues/colorbox",
+    "source": "https://git.drupalcode.org/project/colorbox"
   },
   "license": "GPL-2.0+",
   "minimum-stability": "dev"
