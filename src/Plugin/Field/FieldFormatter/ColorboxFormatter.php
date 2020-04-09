@@ -99,7 +99,7 @@ class ColorboxFormatter extends ImageFormatterBase implements ContainerFactoryPl
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $container->get('current_user'),
-      $container->get('entity.manager')->getStorage('image_style'),
+      $container->get('entity_type.manager')->getStorage('image_style'),
       $container->get('colorbox.attachment'),
       $container->get('module_handler')
     );

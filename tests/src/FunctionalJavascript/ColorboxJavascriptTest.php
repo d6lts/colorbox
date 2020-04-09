@@ -20,6 +20,13 @@ class ColorboxJavascriptTest extends WebDriverTestBase {
   use ContentTypeCreationTrait;
 
   /**
+   * Theme to use.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * {@inheritdoc}
    */
   public static $modules = [
@@ -158,7 +165,7 @@ class ColorboxJavascriptTest extends WebDriverTestBase {
         'settings' => [],
       ])
       ->save();
-    file_unmanaged_copy(DRUPAL_ROOT . '/core/modules/simpletest/files/image-1.png', 'public://test.png');
+    \Drupal::service('file_system')->copy(__DIR__ . '/../../../images/admin/colorbox_example_1.png', 'public://test.png');
     $file_a = File::create([
       'uri' => 'public://test.png',
       'filename' => 'test.png',
