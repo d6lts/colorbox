@@ -1,10 +1,11 @@
 <?php
 
-use Symfony\Component\Filesystem\Filesystem;
 /**
  * @file
  * Drush integration for colorbox.
  */
+
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * The Colorbox plugin URI.
