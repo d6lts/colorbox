@@ -1,6 +1,6 @@
 CONTENTS OF THIS FILE
 ---------------------
-   
+
  * Introduction
  * Features
  * Requirements
@@ -111,6 +111,7 @@ MAINTAINERS
 
 Current maintainers:
 
+ * Neslee Canil Pinto - https://www.drupal.org/u/neslee-canil-pinto
  * Fredrik Jonsson (frjo) - https://www.drupal.org/user/5546
 
 Requires - Drupal 8
