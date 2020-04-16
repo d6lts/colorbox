@@ -5,7 +5,3 @@ services:
   colorbox.attachment:
     class: Drupal\colorbox\ColorboxAttachment
     arguments: ['@colorbox.activation_check', '@module_handler', '@config.factory']
-  colorbox.commands:
-    class: \Drupal\colorbox\Commands\ColorboxCommands
-    tags:
-      - { name: drush.command }
