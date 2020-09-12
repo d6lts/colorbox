@@ -16,17 +16,22 @@ use Drupal\Core\Utility\Token;
 class GalleryIdHelper {
 
   /**
-   * @var null
+   * The Gallery Token.
    *
+   * @var null
    */
   protected $galleryToken = NULL;
 
   /**
+   * The Configuration Factory.
+   *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
 
   /**
+   * The Token.
+   *
    * @var \Drupal\Core\Utility\Token
    */
   protected $token;
@@ -35,7 +40,9 @@ class GalleryIdHelper {
    * GalleryIdHelper constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The Configuration Factory.
    * @param \Drupal\Core\Utility\Token $token
+   *   The Token.
    */
   public function __construct(ConfigFactoryInterface $configFactory, Token $token) {
     $this->configFactory = $configFactory;
@@ -43,11 +50,17 @@ class GalleryIdHelper {
   }
 
   /**
+   * Generate ID.
+   *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The Entity.
    * @param \Drupal\Core\Field\FieldItemInterface $item
+   *   The Item.
    * @param array $settings
+   *   The Settings.
    *
    * @return string
+   *   Return string.
    */
   public function generateId(ContentEntityInterface $entity, FieldItemInterface $item, array $settings) {
     $entity_bundle = $entity->bundle();
