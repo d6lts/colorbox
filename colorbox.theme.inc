@@ -25,7 +25,6 @@ use Drupal\image\Entity\ImageStyle;
  */
 function template_preprocess_colorbox_formatter(&$variables) {
   // @codingStandardsIgnoreEnd
-  static $gallery_token = NULL;
 
   $item = $variables['item'];
   $item_attributes = isset($variables['item_attributes']) ? $variables['item_attributes'] : [];
@@ -38,7 +37,6 @@ function template_preprocess_colorbox_formatter(&$variables) {
   // Build the caption.
   $entity_title = $entity->label();
   $entity_type = $entity->getEntityTypeId();
-  $entity_bundle = $entity->bundle();
 
   switch ($settings['colorbox_caption']) {
     case 'auto':
