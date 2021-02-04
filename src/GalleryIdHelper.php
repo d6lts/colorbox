@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Utility\Token;
 
 /**
- * Class GalleryIdHelper.
+ * Implementation of GalleryIdHelper.
  *
  * @package Drupal\colorbox
  */
@@ -91,7 +91,10 @@ class GalleryIdHelper {
 
       case 'custom':
         $gallery_id = $this->token->replace(
-          $settings['colorbox_gallery_custom'], [$entity_type => $entity, 'file' => $item], ['clear' => TRUE]);
+          $settings['colorbox_gallery_custom'],
+          [$entity_type => $entity, 'file' => $item],
+          ['clear' => TRUE]
+        );
         break;
 
       default:
