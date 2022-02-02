@@ -15,7 +15,16 @@ Drupal.behaviors.initColorboxInline = function (context) {
     if (!results) { return ''; }
     return results[1] || '';
   };
-  $('a, area, input', context).filter('.colorbox-inline:not(.initColorboxInline-processed)').addClass('initColorboxInline-processed').colorbox({
+  $('a, area, input', context).filter('.colorbox-inline:not(.initColorboxInline-processed)').addClass('initColorboxInline-processed')
+    .filter(function () {
+      var href = Drupal.absoluteUrl(this.href),
+          q = $.urlParam('q', href);
+      if (q != '') {
+        q = '/' + q;
+      }
+      return Drupal.urlIsLocal(href) && href.indexOf(settings.file_directory_path) === -1 && href.indexOf('/system/files/') === -1 && q.indexOf('/system/files/') === -1;
+    })
+    .colorbox({
     transition:settings.transition,
     speed:settings.speed,
     opacity:settings.opacity,
@@ -38,7 +47,7 @@ Drupal.behaviors.initColorboxInline = function (context) {
       return $.urlParam('height', $(this).attr('href'));
     },
     title:function(){
-      return $.urlParam('title', $(this).attr('href'));
+      return Drupal.checkPlain($.urlParam('title', $(this).attr('href')));
     },
     iframe:function(){
       return $.urlParam('iframe', $(this).attr('href'));

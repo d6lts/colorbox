@@ -7,6 +7,11 @@ Drupal.behaviors.initColorbox = function (context) {
   $('a, area, input', context)
     .filter('.colorbox:not(.initColorbox-processed)')
     .addClass('initColorbox-processed')
+    .each(function () {
+      if (this.hasAttribute('title')) {
+        this.setAttribute('title', Drupal.checkPlain(this.getAttribute('title')));
+      }
+    })
     .colorbox(Drupal.settings.colorbox);
 };
 

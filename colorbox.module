@@ -179,10 +179,10 @@ function _colorbox_doheader() {
       'slideshowSpeed' => variable_get('colorbox_slideshowspeed', 2500),
       'slideshowStart' => variable_get('colorbox_text_start', 'start slideshow'),
       'slideshowStop' => variable_get('colorbox_text_stop', 'stop slideshow'),
-      'current' => variable_get('colorbox_text_current', '{current} of {total}'),
-      'previous' => variable_get('colorbox_text_previous', '« Prev'),
-      'next' => variable_get('colorbox_text_next', 'Next »'),
-      'close' => variable_get('colorbox_text_close', 'Close'),
+      'current' => check_plain(variable_get('colorbox_text_current', '{current} of {total}')),
+      'previous' => check_plain(variable_get('colorbox_text_previous', '« Prev')),
+      'next' => check_plain(variable_get('colorbox_text_next', 'Next »')),
+      'close' => check_plain(variable_get('colorbox_text_close', 'Close')),
       'overlayClose' => variable_get('colorbox_overlayclose', 1) ? TRUE : FALSE,
       'maxWidth' => variable_get('colorbox_maxwidth', '100%'),
       'maxHeight' => variable_get('colorbox_maxheight', '100%'),
@@ -207,6 +207,9 @@ function _colorbox_doheader() {
       'maxHeight' => '100%',
     );
   }
+
+  $js_settings['photo'] = TRUE;
+  $js_settings['file_directory_path'] = '/' . trim(file_directory_path(), '/') . '/';
 
   $path = drupal_get_path('module', 'colorbox');
   $style = variable_get('colorbox_style', 'default');

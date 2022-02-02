@@ -4,7 +4,26 @@ Drupal.behaviors.initColorboxLogin = function (context) {
   if (!$.isFunction($.colorbox)) {
     return;
   }
-  $("a[href*='/user/login'], a[href*='?q=user/login']", context).colorbox({
+  var settings = Drupal.settings.colorbox;
+  $.urlParam = function(name, url){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
+    if (!results) { return ''; }
+    return results[1] || '';
+  };
+  $("a[href*='/user/login'], a[href*='?q=user/login']", context)
+    .filter(function () {
+      var href = Drupal.absoluteUrl(this.href),
+          q = $.urlParam('q', href);
+      if (q != '') {
+        q = '/' + q;
+      }
+      return Drupal.urlIsLocal(href) && href.indexOf(settings.file_directory_path) === -1 && href.indexOf('/system/files/') === -1 && q.indexOf('/system/files/') === -1;
+    })
+    .each(function () {
+      if (this.hasAttribute('title')) {
+        this.setAttribute('title', Drupal.checkPlain(this.getAttribute('title')));
+      }
+    }).colorbox({
     initialWidth:200,
     initialHeight:200,
     onComplete:function () {
